@@ -39,7 +39,7 @@ namespace WASA_API.Controllers
         }
 
         [HttpPost]
-        public async Task<UserEntity?> GrantAccessUser(GrantAccessUserRequest request)
+        public async Task<UserEntity?> GrantAccessUser([FromBody] GrantAccessUserRequest request)
         {
             if (ModelState.IsValid)
             {
@@ -50,7 +50,7 @@ namespace WASA_API.Controllers
         }
 
         [HttpPut]
-        public async Task<UserEntity?> UpdateUser(int id, UpdateUserRequest request)
+        public async Task<UserEntity?> UpdateUser([FromBody] int id, UpdateUserRequest request)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace WASA_API.Controllers
         }
 
         [HttpDelete]
-        public async Task DeleteUser(int id)
+        public async Task DeleteUser([FromBody] int id)
         {
             await _userService.Delete(id);
         }
