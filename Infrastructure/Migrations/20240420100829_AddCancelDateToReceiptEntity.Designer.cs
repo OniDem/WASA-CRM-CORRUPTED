@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240420100829_AddCancelDateToReceiptEntity")]
+    partial class AddCancelDateToReceiptEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,32 +25,6 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Core.Entity.LoyaltyCardEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Balance")
-                        .HasColumnType("double precision");
-
-                    b.Property<List<double>>("BonusHistory")
-                        .HasColumnType("double precision[]");
-
-                    b.Property<string>("HolderName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<List<int>>("ReceiptIDs")
-                        .HasColumnType("integer[]");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("loyaltyCards");
-                });
 
             modelBuilder.Entity("Core.Entity.ProductEntity", b =>
                 {
@@ -106,12 +83,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<double?>("LoyaltyBonusAdded")
-                        .HasColumnType("double precision");
-
-                    b.Property<int?>("LoyaltyCardID")
-                        .HasColumnType("integer");
 
                     b.Property<int?>("PayMethod")
                         .HasColumnType("integer");

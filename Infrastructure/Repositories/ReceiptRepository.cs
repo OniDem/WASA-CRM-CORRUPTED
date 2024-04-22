@@ -1,4 +1,5 @@
-﻿using Core.Entity;
+﻿using Core.Const;
+using Core.Entity;
 using DTO.Receipt;
 
 namespace Infrastructure.Repositories
@@ -12,28 +13,89 @@ namespace Infrastructure.Repositories
             _applicationContext = applicationContext;
         }
 
-        public ReceiptEntity Add(ReceiptEntity entity)
+        public ReceiptEntity Add(AddReceiptRequest request)
         {
+            ReceiptEntity entity = new()
+            {
+                Products = request.Products,
+                PayMethod = request.PayMethod,
+                AgeLimitConfirmed = false,
+                Total = request.Total,
+                Canceled = false,
+                Closed = false,
+                CreationDate = DateTime.UtcNow,
+                Seller = request.Seller
+            };
             _applicationContext.Receipts.Add(entity);
             _applicationContext.SaveChanges();
             return entity;
         }
 
-        public ReceiptEntity Update(int id, UpdateReceiptRequest request)
+        public ReceiptEntity Close(int id)
         {
-            var receipt = _applicationContext.Receipts.FirstOrDefault(x => x.Id == id);
-            receipt.Products = request.Products;
-            receipt.PayMethod = request.PayMethod;
-            receipt.AgeLimitConfirmed = request.AgeLimitConfirmed;
-            receipt.Total = request.Total;
-            receipt.Canceled = request.Canceled;
-            receipt.Closed = request.Closed;
-            receipt.ClosedDate = request.CloseDate;
-            receipt.PaymentDate = request.PaymentDate;
+            var receipt = ShowById(id);
+            if (!receipt.Closed)
+            {
+                receipt.ClosedDate = DateTime.UtcNow;
+                receipt.Closed = true;
+                _applicationContext.Receipts.Update(receipt);
+                _applicationContext.SaveChanges();
+                return receipt;
+            }
+                return null;
+            
+        }
+
+        public ReceiptEntity Payment(int id, PaymentReceiptRequest request)
+        {
+            var receipt = ShowById(id);
+            if(!receipt.Closed)
+            {
+                receipt.PayMethod = request.PayMethod;
+                receipt.Total = request.Total;
+                receipt.PaymentDate = DateTime.UtcNow;
+
+                _applicationContext.Receipts.Update(receipt);
+                _applicationContext.SaveChanges();
+                return receipt;
+            }
+            return null;
+        }
+
+        public ReceiptEntity Cancel(int id, CancelReasonEnum cancelReason)
+        {
+            var receipt = ShowById(id);
+            receipt.CancelReason = cancelReason;
+            receipt.Canceled = true;
+            receipt.CancelDate = DateTime.UtcNow;
 
             _applicationContext.Receipts.Update(receipt);
             _applicationContext.SaveChanges();
             return receipt;
+        }
+
+        public ReceiptEntity AgeConfirm(int id)
+        {
+            var receipt = ShowById(id);
+            receipt.AgeLimitConfirmed = true;
+
+            _applicationContext.Receipts.Update(receipt);
+            _applicationContext.SaveChanges();
+            return receipt;
+        }
+
+        public ReceiptEntity AddProducts(int id, List<string> products)
+        {
+            var receipt = ShowById(id);
+            if(!receipt.Closed || !receipt.Canceled)
+            {
+                foreach (var product in products)
+                {
+                    receipt.Products.Add(product);
+                }
+                return receipt;
+            }
+            return null;
         }
 
         public ReceiptEntity ShowById(int id)

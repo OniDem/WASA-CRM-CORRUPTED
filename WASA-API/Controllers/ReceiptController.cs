@@ -1,12 +1,14 @@
-﻿using Core.Entity;
+﻿using Core.Const;
+using Core.Entity;
 using DTO.Receipt;
+using DTO.User;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
 namespace WASA_API.Controllers
 {
     [ApiController]
-    [Route("[Controller]/[action]")]
+    [Route("[controller]/[action]")]
     public class ReceiptController : ControllerBase
     {
 
@@ -18,7 +20,7 @@ namespace WASA_API.Controllers
         }
 
         [HttpPost]
-        public async Task<ReceiptEntity> Add([FromBody] AddReceiptRequest request)
+        public async Task<ReceiptEntity?> Add([FromBody] AddReceiptRequest request)
         {
             if (ModelState.IsValid)
             {
@@ -29,12 +31,91 @@ namespace WASA_API.Controllers
         }
 
         [HttpPut]
-        public async Task<ReceiptEntity> Update([FromBody] int id, UpdateReceiptRequest request)
+        public async Task<ReceiptEntity?> Close([FromBody] int id)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _receiptService.Close(id);
+            }
+            return null;
+        }
+
+        [HttpPut]
+        public async Task<ReceiptEntity?> Payment(int id, PaymentReceiptRequest request)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _receiptService.Payment(id, request);
+            }
+            return null;
+        }
+
+        [HttpPut]
+        public async Task<ReceiptEntity?> Cancel(int id, CancelReasonEnum cancelReason)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _receiptService.Cancel(id, cancelReason);
+            }
+            return null;
+        }
+
+        [HttpPut]
+        public async Task<ReceiptEntity?> AgeConfirm(int id)
         {
             if(ModelState.IsValid)
             {
-                var receipt = await _receiptService.Update(id, request);
-                return receipt;
+                return await _receiptService.AgeConfirm(id);
+            }
+            return null;
+        }
+
+        [HttpPut]
+        public async Task<ReceiptEntity?> AddProducts(int id, List<string?> products)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _receiptService.AddProducts(id, products);
+            }
+            return null;
+        }
+
+        [HttpPost]
+        public async Task<ReceiptEntity?> ShowById([FromBody] int id)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _receiptService.ShowById(id);
+            }
+            return null;    
+        }
+
+        [HttpPost]
+        public async Task<List<ReceiptEntity>?> ShowCreatedByDate([FromBody] DateTime date)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _receiptService.ShowCreatedByDate(date);
+            }
+            return null;
+        }
+
+        [HttpPost]
+        public async Task<List<ReceiptEntity>?> ShowClosedByDate([FromBody] DateTime date)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _receiptService.ShowClosedByDate(date);
+            }
+            return null;
+        }
+
+        [HttpPost]
+        public async Task<List<ReceiptEntity>?> ShowPaymentByDate([FromBody] DateTime date)
+        {
+            if (ModelState.IsValid)
+            {
+                return await _receiptService.ShowPaymentByDate(date);
             }
             return null;
         }

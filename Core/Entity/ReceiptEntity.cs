@@ -10,7 +10,11 @@ namespace Core.Entity
         [Key]
         public int Id { get; set; }
 
-        public List<string> Products { get; set; }
+        public int? LoyaltyCardID { get; set; }
+
+        public double? LoyaltyBonusAdded { get; set; }
+
+        public List<string>? Products { get; set; }
 
         public PayMethodEnum? PayMethod { get; set; }
 
@@ -20,9 +24,15 @@ namespace Core.Entity
 
         public bool Canceled { get; set; }
 
+        public CancelReasonEnum CancelReason { get; set; }
+
         public bool Closed { get; set; }
 
+        public string Seller {  get; set; }
+
         public DateTime CreationDate { get; set; }
+
+        public DateTime CancelDate { get; set; }
 
         public DateTime ClosedDate { get; set; }
 

@@ -50,7 +50,7 @@ namespace WASA_API.Controllers
         }
 
         [HttpPut]
-        public async Task<UserEntity?> UpdateUser([FromBody] int id, UpdateUserRequest request)
+        public async Task<UserEntity?> UpdateUser(int id, UpdateUserRequest request)
         {
             if (ModelState.IsValid)
             {

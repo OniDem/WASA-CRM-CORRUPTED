@@ -2,8 +2,10 @@
 {
     public enum CancelReasonEnum
     {
-        Defect = 0,
+        None = 0,
         NonFit = 1,
-        Other = 2
+        Other = 2,
+        Defect = 3,
+        NonPayment = 4
     }
 }

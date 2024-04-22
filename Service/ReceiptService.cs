@@ -1,4 +1,5 @@
-﻿using Core.Entity;
+﻿using Core.Const;
+using Core.Entity;
 using DTO.Receipt;
 using Infrastructure.Repositories;
 
@@ -15,21 +16,32 @@ namespace Services
 
         public async Task<ReceiptEntity> Add(AddReceiptRequest request)
         {
-            return _receiptRepository.Add(new()
-            {
-                Products = request.Products,
-                PayMethod = request.PayMethod,
-                AgeLimitConfirmed = request.AgeLimitConfirmed,
-                Total = request.Total,
-                Canceled = request.Canceled,
-                Closed = request.Closed,
-                CreationDate = request.CreationDate
-            });
+            return _receiptRepository.Add(request);
         }
 
-        public async Task<ReceiptEntity> Update(int id, UpdateReceiptRequest request)
+        public async Task<ReceiptEntity> Close(int id)
         {
-            return _receiptRepository.Update(id, request);
+            return _receiptRepository.Close(id);
+        }
+
+        public async Task<ReceiptEntity> Payment(int id, PaymentReceiptRequest request)
+        {
+            return _receiptRepository.Payment(id, request);
+        }
+
+        public async Task<ReceiptEntity> Cancel(int id, CancelReasonEnum cancelReason)
+        {
+            return _receiptRepository.Cancel(id, cancelReason);
+        }
+
+        public async Task<ReceiptEntity> AgeConfirm(int id)
+        {
+            return _receiptRepository.AgeConfirm(id);
+        }
+
+        public async Task<ReceiptEntity> AddProducts(int id, List<string> products)
+        {
+            return _receiptRepository.AddProducts(id, products);
         }
 
         public async Task<ReceiptEntity> ShowById(int id)
