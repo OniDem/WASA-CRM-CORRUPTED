@@ -93,6 +93,8 @@ namespace Infrastructure.Repositories
                 {
                     receipt.Products.Add(product);
                 }
+                _applicationContext.Receipts.Update(receipt);
+                _applicationContext.SaveChanges();
                 return receipt;
             }
             return null;
