@@ -21,7 +21,7 @@ namespace WASA_API.Controllers
         }
 
         [HttpPost]
-        public async Task<ReceiptEntity?> Add([FromBody] AddReceiptRequest request)
+        public async Task<ReceiptEntity?> Add(AddReceiptRequest request)
         {
             if (ModelState.IsValid)
             {
@@ -72,11 +72,11 @@ namespace WASA_API.Controllers
         }
 
         [HttpPut]
-        public async Task<ReceiptEntity?> AddProducts(int id, List<string?> products)
+        public async Task<ReceiptEntity?> AddProducts(AddProductToReceiptRequest request)
         {
             if (ModelState.IsValid)
             {
-                return await _receiptService.AddProducts(id, products);
+                return await _receiptService.AddProducts(request);
             }
             return null;
         }

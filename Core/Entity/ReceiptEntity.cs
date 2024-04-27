@@ -14,7 +14,15 @@ namespace Core.Entity
 
         public double? LoyaltyBonusAdded { get; set; }
 
-        public List<string>? Products { get; set; }
+        public List<string>? ProductCodes { get; set; }
+
+        public List<CategoryEnum>? ProductCategories { get; set; }
+
+        public List<string>? ProductNames { get; set; }
+
+        public List<double>? ProductPrices { get; set; }
+
+        public List<double>? ProductCount { get; set; }
 
         public PayMethodEnum? PayMethod { get; set; }
 

@@ -10,17 +10,15 @@ namespace Core.Entity
         [Key]
         public string ProductCode { get; set; }
 
-        public string Label { get; set; }
-
         public CategoryEnum Category { get; set; }
 
         public string ProductName { get; set; }
 
-        public double? Price { get; set; }
+        public double Price { get; set; }
 
         public double Volume { get; set; }
 
-        public double? Count { get; set; }
+        public double Count { get; set; }
 
         public bool AgeLimit { get; set; } = false;
 

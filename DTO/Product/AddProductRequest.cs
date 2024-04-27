@@ -10,9 +10,9 @@ namespace DTO.Product
 
         public string ProductName { get; set; }
 
-        public double? Price { get; set; }
+        public double Price { get; set; }
 
-        public double? Count { get; set; }
+        public double Count { get; set; }
 
         public bool AgeLimit {  get; set; } = false;
 

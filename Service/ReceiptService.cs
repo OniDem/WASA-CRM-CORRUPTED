@@ -39,9 +39,9 @@ namespace Services
             return _receiptRepository.AgeConfirm(id);
         }
 
-        public async Task<ReceiptEntity> AddProducts(int id, List<string> products)
+        public async Task<ReceiptEntity> AddProducts(AddProductToReceiptRequest request)
         {
-            return _receiptRepository.AddProducts(id, products);
+            return _receiptRepository.AddProducts(request);
         }
 
         public async Task<ReceiptEntity> ShowById(int id)

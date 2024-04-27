@@ -1,10 +1,9 @@
 ﻿namespace Core.Const
 {
-    public enum CategoryEnum
+    public enum MarkingTypeEnum
     {
         Alcohol = 0,
         Cigarette = 1,
-        Milk = 2,
-        Another = 3
+        Milk = 2
     }
 }

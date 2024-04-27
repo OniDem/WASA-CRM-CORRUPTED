@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240426044514_AddVolumeToProductEntity")]
+    partial class AddVolumeToProductEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,13 +63,13 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("integer");
 
-                    b.Property<double>("Count")
+                    b.Property<double?>("Count")
                         .HasColumnType("double precision");
 
                     b.Property<DateTime?>("ExpirationDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<double>("Price")
+                    b.Property<double?>("Price")
                         .HasColumnType("double precision");
 
                     b.Property<string>("ProductName")
@@ -122,20 +125,8 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int[]>("ProductCategories")
-                        .HasColumnType("integer[]");
-
-                    b.Property<List<string>>("ProductCodes")
+                    b.Property<List<string>>("Products")
                         .HasColumnType("text[]");
-
-                    b.Property<List<double>>("ProductCount")
-                        .HasColumnType("double precision[]");
-
-                    b.Property<List<string>>("ProductNames")
-                        .HasColumnType("text[]");
-
-                    b.Property<List<double>>("ProductPrices")
-                        .HasColumnType("double precision[]");
 
                     b.Property<string>("Seller")
                         .IsRequired()

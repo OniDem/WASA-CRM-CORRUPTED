@@ -17,16 +17,19 @@ namespace Infrastructure.Repositories
         {
             ReceiptEntity entity = new()
             {
-                Products = request.Products,
                 PayMethod = request.PayMethod,
-                AgeLimitConfirmed = false,
-                Total = request.Total,
+                AgeLimitConfirmed = request.AgeLimitConfirmed,
                 Canceled = false,
                 Closed = false,
                 CreationDate = DateTime.UtcNow,
-                Seller = request.Seller
+                Seller = request.Seller,
+                ProductCodes = [],
+                ProductCategories = [],
+                ProductNames = [],
+                ProductPrices = [],
+                ProductCount = []
             };
-            _applicationContext.Receipts.Add(entity);
+            _applicationContext.Receipts.Add(AddProductToEntity(entity, request.ProductCodes!, request.ProductCounts));
             _applicationContext.SaveChanges();
             return entity;
         }
@@ -34,7 +37,7 @@ namespace Infrastructure.Repositories
         public ReceiptEntity Close(int id)
         {
             var receipt = ShowById(id);
-            if (!receipt.Closed)
+            if (!receipt!.Closed)
             {
                 receipt.ClosedDate = DateTime.UtcNow;
                 receipt.Closed = true;
@@ -42,14 +45,14 @@ namespace Infrastructure.Repositories
                 _applicationContext.SaveChanges();
                 return receipt;
             }
-                return null;
+                return null!;
             
         }
 
         public ReceiptEntity Payment(int id, PaymentReceiptRequest request)
         {
             var receipt = ShowById(id);
-            if(!receipt.Closed)
+            if(!receipt!.Closed)
             {
                 receipt.PayMethod = request.PayMethod;
                 receipt.Total = request.Total;
@@ -59,13 +62,13 @@ namespace Infrastructure.Repositories
                 _applicationContext.SaveChanges();
                 return receipt;
             }
-            return null;
+            return null!;
         }
 
         public ReceiptEntity Cancel(int id, CancelReasonEnum cancelReason)
         {
             var receipt = ShowById(id);
-            receipt.CancelReason = cancelReason;
+            receipt!.CancelReason = cancelReason;
             receipt.Canceled = true;
             receipt.CancelDate = DateTime.UtcNow;
 
@@ -77,30 +80,27 @@ namespace Infrastructure.Repositories
         public ReceiptEntity AgeConfirm(int id)
         {
             var receipt = ShowById(id);
-            receipt.AgeLimitConfirmed = true;
+            receipt!.AgeLimitConfirmed = true;
 
             _applicationContext.Receipts.Update(receipt);
             _applicationContext.SaveChanges();
             return receipt;
         }
 
-        public ReceiptEntity AddProducts(int id, List<string> products)
+        public ReceiptEntity AddProducts(AddProductToReceiptRequest request)
         {
-            var receipt = ShowById(id);
-            if(!receipt.Closed || !receipt.Canceled)
+            var receipt = ShowById(request.Id);
+            
+            if(!receipt!.Closed || !receipt.Canceled)
             {
-                foreach (var product in products)
-                {
-                    receipt.Products.Add(product);
-                }
-                _applicationContext.Receipts.Update(receipt);
+                _applicationContext.Receipts.Update(AddProductToEntity(receipt, request.ProductCodes!, request.ProductCounts));
                 _applicationContext.SaveChanges();
                 return receipt;
             }
-            return null;
+            return null!;
         }
 
-        public ReceiptEntity ShowById(int id)
+        public ReceiptEntity? ShowById(int id)
         {
             return _applicationContext.Receipts.FirstOrDefault(x => x.Id == id);
         }
@@ -139,6 +139,86 @@ namespace Infrastructure.Repositories
                     listToReturn.Add(receipt);
             }
             return listToReturn;
+        }
+
+        private ReceiptEntity AddProductToEntity(ReceiptEntity receipt, List<string> productCodes, List<double> productCounts)
+        {
+            for (int i = 0; i < productCodes.Count; i++)
+            {
+                var product = _applicationContext.Products.FirstOrDefault(x => x.ProductCode == productCodes[i]);
+                if(product != null)
+                {
+                    if (receipt.ProductCodes.Count > 0)
+                    {
+                        foreach (var productCode in receipt.ProductCodes.ToList())
+                        {
+                            if (productCode == productCodes[i])
+                            {
+                                receipt.ProductCount![i] += productCounts[i];
+                                receipt.Total += product.Price * productCounts[i];
+                            }
+                            break;
+                        }
+                        if (!receipt.AgeLimitConfirmed)
+                        {
+                            if (!product.AgeLimit)
+                            {
+                                receipt.ProductCodes!.Add(product.ProductCode);
+                                receipt.ProductCategories!.Add(product.Category);
+                                receipt.ProductNames!.Add(product.ProductName);
+                                receipt.ProductPrices!.Add(product.Price);
+                                receipt.ProductCount!.Add(productCounts[i]);
+                                receipt.Total += product.Price * productCounts[i];
+                            }
+                        }
+                        else
+                        {
+                            receipt.ProductCodes!.Add(product.ProductCode);
+                            receipt.ProductCategories!.Add(product.Category);
+                            receipt.ProductNames!.Add(product.ProductName);
+                            receipt.ProductPrices!.Add(product.Price);
+                            receipt.ProductCount!.Add(productCounts[i]);
+                            receipt.Total += product.Price * productCounts[i];
+                        }
+                    }
+                    else
+                    {
+                        if (!receipt.AgeLimitConfirmed)
+                        {
+                            if (!product.AgeLimit)
+                            {
+                                receipt.ProductCodes!.Add(product.ProductCode);
+                                receipt.ProductCategories!.Add(product.Category);
+                                receipt.ProductNames!.Add(product.ProductName);
+                                receipt.ProductPrices!.Add(product.Price);
+                                receipt.ProductCount!.Add(productCounts[i]);
+                                receipt.Total += product.Price * productCounts[i];
+                            }
+                        }
+                        else
+                        {
+                            receipt.ProductCodes!.Add(product.ProductCode);
+                            receipt.ProductCategories!.Add(product.Category);
+                            receipt.ProductNames!.Add(product.ProductName);
+                            receipt.ProductPrices!.Add(product.Price);
+                            receipt.ProductCount!.Add(productCounts[i]);
+                            receipt.Total += product.Price * productCounts[i];
+                        }
+                    }
+                    
+                }
+            }
+            return receipt;
+        }
+
+        private bool IsNotUniqueCode(ReceiptEntity receipt, List<string> productCodes)
+        {
+            foreach(var productCode in productCodes)
+            {
+                if (receipt.ProductCodes!.Contains(productCode))
+                    return true;
+            }
+            return false;
         }
     }
 }
