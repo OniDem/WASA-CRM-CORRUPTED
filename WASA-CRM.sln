@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Service\Services.csproj", "{A92E728F-4C75-4491-8E4F-1171927FB542}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkingVerifyAPI", "MarkingVerifyAPI\MarkingVerifyAPI.csproj", "{BD1A3411-EEEA-46DA-919D-E2A0CAF2C0B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkingVerifyAPI", "MarkingVerifyAPI\MarkingVerifyAPI.csproj", "{BD1A3411-EEEA-46DA-919D-E2A0CAF2C0B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

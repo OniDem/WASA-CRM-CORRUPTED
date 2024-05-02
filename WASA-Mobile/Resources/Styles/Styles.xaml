@@ -423,4 +423,20 @@
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
+    <Style x:Key="ScanButtonStyle" TargetType="ImageButton">
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="Source" Value="scan_white_icon.png"/>
+        <Setter Property="ZIndex" Value="1"/>
+        <Setter Property="HorizontalOptions" Value="End"/>
+        <Setter Property="HeightRequest" Value="20"/>
+    </Style> 
+    
+    <Style x:Key="DefaultButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#f2f2f2"/>
+        <Setter Property="TextColor" Value="#242323"/>
+        <Setter Property="CornerRadius" Value="16"/>
+        <Setter Property="Margin" Value="16, 24"/>
+        <Setter Property="Padding" Value="8"/>
+    </Style>
+
 </ResourceDictionary>

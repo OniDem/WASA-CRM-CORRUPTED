@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="WASA_Mobile.Pages.MainPage"
+             BackgroundColor="#242323">
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="#242323" StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
+    
+    <ScrollView VerticalOptions="FillAndExpand">
+        <Grid >
+            <VerticalStackLayout>
+
+            </VerticalStackLayout>
+            <Grid ColumnDefinitions="*, *, *, *" HorizontalOptions="FillAndExpand" HeightRequest="32" Margin="8" VerticalOptions="End">
+                <ImageButton Grid.Column="0" x:Name="First" Clicked="First_Clicked" Source="dotnet_bot.png"/>
+                <Image Grid.Column="1" Source="dotnet_bot.png"/>
+                <Image Grid.Column="2" Source="dotnet_bot.png"/>
+                <Image Grid.Column="3" Source="dotnet_bot.png"/>
+            </Grid>
+            <Frame BackgroundColor="#f2f2f2" Opacity="0.1" CornerRadius="0" VerticalOptions="End" HeightRequest="48" Padding="8"/>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
