@@ -1,6 +1,4 @@
-﻿using Core.Const;
-using WASA_Mobile.Const;
-using WASA_Mobile.Service;
+﻿using WASA_Mobile.Service;
 
 namespace WASA_Mobile.Pages
 {

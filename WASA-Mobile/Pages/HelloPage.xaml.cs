@@ -13,7 +13,7 @@ public partial class HelloPage : ContentPage
 		InitializeComponent();
         context = new();
         indicator.IsRunning = true;
-        if (UserService.UserAutorized())
+        if (UserService.UserAuthorized())
         {
             Navigation.PushModalAsync(new MainPage());
             Navigation.RemovePage(this);

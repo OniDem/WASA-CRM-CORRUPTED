@@ -148,7 +148,7 @@ namespace Infrastructure.Repositories
                 var product = _applicationContext.Products.FirstOrDefault(x => x.ProductCode == productCodes[i]);
                 if(product != null)
                 {
-                    if (receipt.ProductCodes.Count > 0)
+                    if (receipt.ProductCodes!.Count > 0)
                     {
                         foreach (var productCode in receipt.ProductCodes.ToList())
                         {

@@ -18,7 +18,7 @@ namespace WASA_Mobile.Service
                 var response = await httpClient.PostAsync("http://10.0.2.2:5007/User/AuthUser", content);
                 var result = await response.Content.ReadFromJsonAsync<UserEntity>();
                 
-                if (result.Id > 0)
+                if (result!.Id > 0)
                 {
                     await context.AddAuthUser(
                     new()
@@ -39,11 +39,18 @@ namespace WASA_Mobile.Service
                 return false;
             }
         }
-        public static bool UserAutorized()
+        public static bool UserAuthorized()
         {
-            var user = Task.Run(context.GetUserInfo).Result;
-            if (user != null && user.Id > 0)
-                return true;
+            try
+            {
+                var user = Task.Run(context.GetUserInfo).Result;
+                if (user != null && user.Id > 0)
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
             return false;
         }
     }
