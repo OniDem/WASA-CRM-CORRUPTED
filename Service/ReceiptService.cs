@@ -49,7 +49,7 @@ namespace Services
             return _receiptRepository.ShowById(id);
         }
 
-        public async Task<List<ReceiptEntity>> ShowCreatedByDate(DateTime date)
+        public async Task<IEnumerable<ReceiptEntity>> ShowCreatedByDate(DateTime date)
         {
             return _receiptRepository.ShowCreatedByDate(date);
         }

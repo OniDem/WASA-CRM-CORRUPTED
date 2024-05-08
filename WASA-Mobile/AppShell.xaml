@@ -10,9 +10,6 @@
 
     <TabBar>
         <Tab>
-            <ShellContent ContentTemplate="{DataTemplate local:HelloPage}" Route="HelloPage" />
-        </Tab>
-        <Tab>
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
         </Tab>
     </TabBar>
