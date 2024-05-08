@@ -19,7 +19,6 @@ namespace WASA_Mobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
             // Continue initializing your .NET MAUI App here
-            builder.Services.AddSingleton<ApplicationContext>();
 
 
             return builder.Build();

@@ -105,16 +105,14 @@ namespace Infrastructure.Repositories
             return _applicationContext.Receipts.FirstOrDefault(x => x.Id == id);
         }
 
-        public List<ReceiptEntity> ShowCreatedByDate(DateTime date)
+        public IEnumerable<ReceiptEntity> ShowCreatedByDate(DateTime date)
         {
             var receipts = _applicationContext.Receipts.ToList();
-            List<ReceiptEntity> listToReturn = new();
             foreach(var receipt in receipts)
             {
-                if(receipt.CreationDate.Date == date.Date)
-                    listToReturn.Add(receipt);
+                if (receipt.CreationDate.Date == date.Date)
+                    yield return receipt;
             }
-            return listToReturn;
         }
 
         public List<ReceiptEntity> ShowClosedByDate(DateTime date)

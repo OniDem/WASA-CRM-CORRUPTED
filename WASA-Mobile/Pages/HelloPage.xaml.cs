@@ -6,17 +6,18 @@ namespace WASA_Mobile.Pages;
 
 public partial class HelloPage : ContentPage
 {
-    ApplicationContext context;
     ActivityIndicator indicator = new() { Color = Color.FromArgb("#f2f2f2") };
     public HelloPage()
 	{
 		InitializeComponent();
-        context = new();
         indicator.IsRunning = true;
         if (UserService.UserAuthorized())
         {
-            Navigation.PushModalAsync(new MainPage());
-            Navigation.RemovePage(this);
+            var stack = Shell.Current.Navigation.NavigationStack.ToArray();
+            for (int i = stack.Length - 1; i > 0; i--)
+            {
+                Shell.Current.Navigation.RemovePage(stack[i]);
+            }
         }
         indicator.IsRunning = false;
 	}
@@ -33,24 +34,30 @@ public partial class HelloPage : ContentPage
 
     private async void AuthButton_Clicked(object sender, EventArgs e)
     {
-        var toast = Toast.Make("", CommunityToolkit.Maui.Core.ToastDuration.Short);
+        
         if (LoginEntry.Text.Length > 0)
         {
             if (PasswordEntry.Text.Length > 0)
             {
                 if (await UserService.AuthUser(new() { Username = LoginEntry.Text, Password = PasswordEntry.Text }))
                 {
-                    var user = await context.GetUserInfo();
-                    await DisplayAlert(Title, user.Id.ToString(), "ok");
-
-                    await Navigation.PushAsync(new MainPage());
+                    await Navigation.PushModalAsync(new MainPage());
+                    await DisplayAlert(Title, UserService.GetUserId().ToString(), "ok");
                 }
             }
             else
+            {
+                var toast = Toast.Make("", CommunityToolkit.Maui.Core.ToastDuration.Short);
                 toast = Toast.Make("¬ведите пароль!");
+                await toast.Show();
+            }
         }
         else
+        {
+            var toast = Toast.Make("", CommunityToolkit.Maui.Core.ToastDuration.Short);
             toast = Toast.Make("¬ведите логин");
-        await toast.Show();
+            await toast.Show();
+        }
+        
     }
 }

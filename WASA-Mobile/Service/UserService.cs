@@ -1,14 +1,13 @@
-﻿using Core.Const;
+﻿using CommunityToolkit.Maui.Converters;
+using Core.Const;
 using Core.Entity;
 using DTO.User;
 using System.Net.Http.Json;
-using WASA_Mobile.Const;
 
 namespace WASA_Mobile.Service
 {
     public static class UserService
     {
-        static ApplicationContext context = new();
         public static async Task<bool> AuthUser(AuthUserRequest request)
         {
             try
@@ -20,15 +19,13 @@ namespace WASA_Mobile.Service
                 
                 if (result!.Id > 0)
                 {
-                    await context.AddAuthUser(
+                    AddUserToSecureStorage(
                     new()
                     {
                         Id = result!.Id,
-                        Role = result.Role,
+                        Role = result.Role.ToString(),
                         FIO = result.FIO,
-                        Username = result.Username,
-                        CreateDate = result.CreateDate,
-                        LastModifiedDate = result.LastModifiedDate
+                        Username = result.Username
                     });
                     return true;
                 }
@@ -39,19 +36,40 @@ namespace WASA_Mobile.Service
                 return false;
             }
         }
-        public static bool UserAuthorized()
-        {
-            try
-            {
-                var user = Task.Run(context.GetUserInfo).Result;
-                if (user != null && user.Id > 0)
-                    return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+        public static bool UserAutorized()
+        { 
+            if (GetUserId() > 0)
+                return true;
             return false;
+        }
+
+        public static int GetUserId()
+        {
+            return Convert.ToInt32(Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.Id)).Result);
+        }
+
+        public static SecureStorageUserEntity GetUserInfoFromSecuteStorage()
+        {
+            return new()
+            {
+                Id = Convert.ToInt32(Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.Id)).Result),
+                Role = Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.Role)).Result!,
+                FIO = Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.FIO)).Result!,
+                Username = Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.Username)).Result!,
+            };
+        }
+
+        private static async void AddUserToSecureStorage(SecureStorageUserEntity entity)
+        {
+            await SecureStorage.SetAsync(SecureStoragePathConst.Id, entity.Id.ToString());
+            await SecureStorage.SetAsync(SecureStoragePathConst.Role, entity.Role.ToString());
+            await SecureStorage.SetAsync(SecureStoragePathConst.FIO, entity.FIO);
+            await SecureStorage.SetAsync(SecureStoragePathConst.Username, entity.Username);
+        }
+
+        public static void RemoveUserFromSecureStorage()
+        {
+            SecureStorage.RemoveAll();
         }
     }
 }

@@ -96,7 +96,7 @@ namespace WASA_API.Controllers
         {
             if (ModelState.IsValid)
             {
-                return await _receiptService.ShowCreatedByDate(date);
+                return (List<ReceiptEntity>?)await _receiptService.ShowCreatedByDate(date);
             }
             return null;
         }
