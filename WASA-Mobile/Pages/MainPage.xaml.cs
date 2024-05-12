@@ -11,7 +11,7 @@ namespace WASA_Mobile.Pages
             InitializeComponent();
             if(!UserService.UserAutorized())
             {
-                Navigation.PushAsync(new HelloPage());
+                Navigation.PushModalAsync(new HelloPage());
             }
             UsernameLabel.Text = "Добро пожаловать " + UserService.GetUserInfoFromSecuteStorage().Username;
         }

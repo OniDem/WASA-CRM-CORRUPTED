@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="WASA_Mobile.Pages.MainPage"
-             BackgroundColor="#242323">
+             Style="{StaticResource DefaultContentPage}">
 
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="#242323" StatusBarStyle="LightContent" />
@@ -18,7 +18,7 @@
             </VerticalStackLayout>
             <Grid ColumnDefinitions="*, *, *, *" HorizontalOptions="FillAndExpand" HeightRequest="32" Margin="8" VerticalOptions="End" ZIndex="1">
                 <ImageButton Grid.Column="0" x:Name="First" Clicked="First_Clicked" Source="dotnet_bot.png"/>
-                <Image Grid.Column="1" Source="dotnet_bot.png"/>
+                <ImageButton Grid.Column="1" Source="dotnet_bot.png" />
                 <Image Grid.Column="2" Source="dotnet_bot.png"/>
                 <Button Grid.Column="3" Background="AntiqueWhite" x:Name="LogoutButton" Clicked="LogoutButton_Clicked" ZIndex="10" ImageSource="dotnet_bot.png"/>
             </Grid>

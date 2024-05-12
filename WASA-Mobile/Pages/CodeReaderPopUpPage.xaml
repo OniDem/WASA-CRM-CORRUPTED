@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WASA_Mobile.Pages.CodeReaderPopUpPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:scanner="clr-namespace:BarcodeScanning;assembly=BarcodeScanning.Native.Maui"
+             Color="#242323"
+               CanBeDismissedByTappingOutsideOfPopup="True">
+    <VerticalStackLayout Padding="16">
+        <scanner:CameraView HeightRequest="200" WidthRequest="200" VerticalOptions="Center" HorizontalOptions="Center" CameraEnabled="True" x:Name="CodeScanner" OnDetectionFinished="CodeScanner_OnDetectionFinished"/>
+        
+        <StackLayout>
+            <Label Margin="12" x:Name="ScannedCode" Style="{StaticResource DefaultLabelStyle}"/>
+           <!-- <Button Margin="12" Text="Отсканировать ещё раз" Style="{StaticResource DefaultButtonStyle}" x:Name="ScanCodeAgain" Clicked="ScanCodeAgain_Clicked"/> -->
+            <!-- <Button Margin="12" Text="Удалить отксканированный код" Style="{StaticResource DefaultButtonStyle}" x:Name="DeleteScannedCode" Clicked="DeleteScannedCode_Clicked"/> -->
+        </StackLayout>
+    </VerticalStackLayout>
+</toolkit:Popup>

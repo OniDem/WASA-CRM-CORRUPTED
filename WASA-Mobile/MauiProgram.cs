@@ -1,5 +1,5 @@
-﻿using CommunityToolkit.Maui;
-using WASA_Mobile.Service;
+﻿using BarcodeScanning;
+using CommunityToolkit.Maui;
 
 namespace WASA_Mobile
 {
@@ -10,6 +10,8 @@ namespace WASA_Mobile
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+
+                .UseBarcodeScanning()
                 // Initialize the .NET MAUI Community Toolkit by adding the below line of code
                 .UseMauiCommunityToolkit()
                 // After initializing the .NET MAUI Community Toolkit, optionally add additional fonts

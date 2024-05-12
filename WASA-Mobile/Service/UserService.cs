@@ -2,38 +2,41 @@
 using Core.Const;
 using Core.Entity;
 using DTO.User;
+using System.Net;
 using System.Net.Http.Json;
 
 namespace WASA_Mobile.Service
 {
     public static class UserService
     {
-        public static async Task<bool> AuthUser(AuthUserRequest request)
+        public static async Task<string> AuthUser(AuthUserRequest request)
         {
             try
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://10.0.2.2:5007/User/AuthUser", content);
-                var result = await response.Content.ReadFromJsonAsync<UserEntity>();
-                
-                if (result!.Id > 0)
+                var response = await httpClient.PostAsync(BaseServerConnectionString.GetFullUrl("User/AuthUser"), content);
+                if(response.StatusCode == HttpStatusCode.OK)
                 {
-                    AddUserToSecureStorage(
-                    new()
+                    var result = await response.Content.ReadFromJsonAsync<UserEntity>();
+                    if (result!.Id > 0)
                     {
-                        Id = result!.Id,
-                        Role = result.Role.ToString(),
-                        FIO = result.FIO,
-                        Username = result.Username
-                    });
-                    return true;
+                        AddUserToSecureStorage(
+                        new()
+                        {
+                            Id = result!.Id,
+                            Role = result.Role.ToString(),
+                            FIO = result.FIO,
+                            Username = result.Username
+                        });
+
+                    }
                 }
-                return false;
+                return ServerService.ResponseCodeToString(response.StatusCode)!;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return false;
+                return "Проверьте подключение к интернету";
             }
         }
         public static bool UserAutorized()
@@ -70,6 +73,13 @@ namespace WASA_Mobile.Service
         public static void RemoveUserFromSecureStorage()
         {
             SecureStorage.RemoveAll();
+        }
+
+        public static async Task<bool> SecureStorageHaveValue(string key)
+        {
+            if (await SecureStorage.GetAsync(key) != null)
+                return true;
+            return false;
         }
     }
 }

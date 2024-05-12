@@ -9,5 +9,7 @@
         public const string FIO = "fio";
 
         public const string Username = "username";
+
+        public const string Barcode = "Barcode";
     }
 }

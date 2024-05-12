@@ -57,6 +57,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="BarcodeScanning.Native.Maui" Version="1.5.0" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="9.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
@@ -80,10 +81,16 @@
 	  <Compile Update="Pages\HelloPage.xaml.cs">
 	    <DependentUpon>HelloPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Pages\CodeReaderPopUpPage.xaml.cs">
+	    <DependentUpon>CodeReaderPopUpPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="Pages\HelloPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\CodeReaderPopUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

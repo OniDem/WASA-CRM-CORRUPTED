@@ -439,4 +439,12 @@
         <Setter Property="Padding" Value="8"/>
     </Style>
 
+    <Style x:Key="DefaultLabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="#f2f2f2"/>
+    </Style>
+
+    <Style x:Key="DefaultContentPage" TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="#242323"/>
+    </Style>
+
 </ResourceDictionary>

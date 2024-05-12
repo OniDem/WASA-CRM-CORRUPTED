@@ -1,5 +1,5 @@
 using CommunityToolkit.Maui.Alerts;
-using Core.Const;
+using CommunityToolkit.Maui.Views;
 using WASA_Mobile.Service;
 
 namespace WASA_Mobile.Pages;
@@ -11,7 +11,7 @@ public partial class HelloPage : ContentPage
 	{
 		InitializeComponent();
         indicator.IsRunning = true;
-        if (UserService.UserAuthorized())
+        if (UserService.UserAutorized())
         {
             var stack = Shell.Current.Navigation.NavigationStack.ToArray();
             for (int i = stack.Length - 1; i > 0; i--)
@@ -22,40 +22,97 @@ public partial class HelloPage : ContentPage
         indicator.IsRunning = false;
 	}
 
-    private void ScanLoginBarcodeButton_Clicked(object sender, EventArgs e)
+    private async void ScanLoginBarcodeButton_Clicked(object sender, EventArgs e)
     {
+        var popup = new CodeReaderPopUpPage();
+        var result = await this.ShowPopupAsync(popup, CancellationToken.None);
 
+        if (result != null)
+            if (result is string)
+                LoginEntry.Text = result as string;
     }
 
-    private void ScanPasswordBarcodeButton_Clicked(object sender, EventArgs e)
+    private async void ScanPasswordBarcodeButton_Clicked(object sender, EventArgs e)
     {
+        var popup = new CodeReaderPopUpPage();
+        var result = await this.ShowPopupAsync(popup, CancellationToken.None);
 
+        if (result != null)
+        {
+            if (result is string)
+                PasswordEntry.Text = result as string;
+            if (LoginEntry.Text.Length > 0)
+            {
+                if (PasswordEntry.Text!.Length > 0)
+                {
+                    var response = await UserService.AuthUser(new() { Username = LoginEntry.Text, Password = PasswordEntry.Text });
+                    if (response == "Успешно")
+                    {
+                        await Navigation.PushModalAsync(new MainPage());
+                        await DisplayAlert(Title, UserService.GetUserId().ToString(), "ok");
+                    }
+                    else if (response == "Пустой ответ")
+                    {
+                        await DisplayAlert("Ответ от сервера", "Такого пользователя не существует, либо данные не совпадают", "ok");
+                    }
+                    else
+                        await DisplayAlert("Ответ от сервера", response, "ok");
+                }
+                else
+                {
+                    var toast = Toast.Make("Введите пароль!");
+                    await toast.Show();
+                }
+            }
+            else
+            {
+                var toast = Toast.Make("Введите логин");
+                await toast.Show();
+            }
+        }
+        
     }
 
     private async void AuthButton_Clicked(object sender, EventArgs e)
     {
         
-        if (LoginEntry.Text.Length > 0)
+        if(LoginEntry.Text != null)
         {
-            if (PasswordEntry.Text.Length > 0)
+            if(PasswordEntry.Text != null)
             {
-                if (await UserService.AuthUser(new() { Username = LoginEntry.Text, Password = PasswordEntry.Text }))
+                if (LoginEntry.Text.Length > 0)
                 {
-                    await Navigation.PushModalAsync(new MainPage());
-                    await DisplayAlert(Title, UserService.GetUserId().ToString(), "ok");
+                    if (PasswordEntry.Text.Length > 0)
+                    {
+                        var response = await UserService.AuthUser(new() { Username = LoginEntry.Text, Password = PasswordEntry.Text });
+                        if (response == "Успешно")
+                        {
+                            await Navigation.PushModalAsync(new MainPage());
+                            await DisplayAlert(Title, UserService.GetUserId().ToString(), "ok");
+                        }
+                        else if (response == "Пустой ответ")
+                        {
+                            await DisplayAlert("Ответ от сервера", "Такого пользователя не существует, либо данные не совпадают", "ok");
+                        }
+                        else
+                            await DisplayAlert("Ответ от сервера", response, "ok");
+                    }
+                    else
+                    {
+                        var toast = Toast.Make("Введите пароль!");
+                        await toast.Show();
+                    }
                 }
             }
             else
             {
-                var toast = Toast.Make("", CommunityToolkit.Maui.Core.ToastDuration.Short);
-                toast = Toast.Make("Введите пароль!");
+                var toast = Toast.Make("Введите пароль");
                 await toast.Show();
             }
         }
         else
         {
-            var toast = Toast.Make("", CommunityToolkit.Maui.Core.ToastDuration.Short);
-            toast = Toast.Make("Введите логин");
+            var toast = Toast.Make("Введите логин");
             await toast.Show();
         }
         
