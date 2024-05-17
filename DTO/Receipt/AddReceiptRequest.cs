@@ -8,8 +8,6 @@ namespace DTO.Receipt
 
         public List<double> ProductCounts { get; set; }
 
-        public bool AgeLimitConfirmed { get; set; } = false;
-
         public PayMethodEnum PayMethod { get; set; }
 
         public double Total { get; set; }

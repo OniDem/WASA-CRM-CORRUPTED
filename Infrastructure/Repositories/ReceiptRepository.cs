@@ -18,7 +18,6 @@ namespace Infrastructure.Repositories
             ReceiptEntity entity = new()
             {
                 PayMethod = request.PayMethod,
-                AgeLimitConfirmed = request.AgeLimitConfirmed,
                 Canceled = false,
                 Closed = false,
                 CreationDate = DateTime.UtcNow,
@@ -71,16 +70,6 @@ namespace Infrastructure.Repositories
             receipt!.CancelReason = cancelReason;
             receipt.Canceled = true;
             receipt.CancelDate = DateTime.UtcNow;
-
-            _applicationContext.Receipts.Update(receipt);
-            _applicationContext.SaveChanges();
-            return receipt;
-        }
-
-        public ReceiptEntity AgeConfirm(int id)
-        {
-            var receipt = ShowById(id);
-            receipt!.AgeLimitConfirmed = true;
 
             _applicationContext.Receipts.Update(receipt);
             _applicationContext.SaveChanges();
@@ -144,7 +133,7 @@ namespace Infrastructure.Repositories
             for (int i = 0; i < productCodes.Count; i++)
             {
                 var product = _applicationContext.Products.FirstOrDefault(x => x.ProductCode == productCodes[i]);
-                if(product != null)
+                if (product != null)
                 {
                     if (receipt.ProductCodes!.Count > 0)
                     {
@@ -154,56 +143,26 @@ namespace Infrastructure.Repositories
                             {
                                 receipt.ProductCount![i] += productCounts[i];
                                 receipt.Total += product.Price * productCounts[i];
+                                break;
                             }
-                            break;
-                        }
-                        if (!receipt.AgeLimitConfirmed)
-                        {
-                            if (!product.AgeLimit)
-                            {
                                 receipt.ProductCodes!.Add(product.ProductCode);
                                 receipt.ProductCategories!.Add(product.Category);
                                 receipt.ProductNames!.Add(product.ProductName);
                                 receipt.ProductPrices!.Add(product.Price);
                                 receipt.ProductCount!.Add(productCounts[i]);
                                 receipt.Total += product.Price * productCounts[i];
-                            }
                         }
-                        else
-                        {
-                            receipt.ProductCodes!.Add(product.ProductCode);
-                            receipt.ProductCategories!.Add(product.Category);
-                            receipt.ProductNames!.Add(product.ProductName);
-                            receipt.ProductPrices!.Add(product.Price);
-                            receipt.ProductCount!.Add(productCounts[i]);
-                            receipt.Total += product.Price * productCounts[i];
-                        }
+                        return receipt;
                     }
                     else
                     {
-                        if (!receipt.AgeLimitConfirmed)
-                        {
-                            if (!product.AgeLimit)
-                            {
-                                receipt.ProductCodes!.Add(product.ProductCode);
-                                receipt.ProductCategories!.Add(product.Category);
-                                receipt.ProductNames!.Add(product.ProductName);
-                                receipt.ProductPrices!.Add(product.Price);
-                                receipt.ProductCount!.Add(productCounts[i]);
-                                receipt.Total += product.Price * productCounts[i];
-                            }
-                        }
-                        else
-                        {
-                            receipt.ProductCodes!.Add(product.ProductCode);
-                            receipt.ProductCategories!.Add(product.Category);
-                            receipt.ProductNames!.Add(product.ProductName);
-                            receipt.ProductPrices!.Add(product.Price);
-                            receipt.ProductCount!.Add(productCounts[i]);
-                            receipt.Total += product.Price * productCounts[i];
-                        }
+                        receipt.ProductCodes!.Add(product.ProductCode);
+                        receipt.ProductCategories!.Add(product.Category);
+                        receipt.ProductNames!.Add(product.ProductName);
+                        receipt.ProductPrices!.Add(product.Price);
+                        receipt.ProductCount!.Add(productCounts[i]);
+                        receipt.Total += product.Price * productCounts[i];
                     }
-                    
                 }
             }
             return receipt;

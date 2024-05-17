@@ -2,7 +2,6 @@
 using Core.Entity;
 using DTO.Product;
 using Infrastructure.Repositories;
-using WASA_API.Service;
 
 namespace Services
 {
@@ -17,36 +16,14 @@ namespace Services
 
         public async Task<ProductEntity?> AddProduct(AddProductRequest request)
         {
-            if(request.Category == CategoryEnum.Alcohol || request.Category == CategoryEnum.Cigarette || request.Category == CategoryEnum.Milk)
+            return _productRepository.Add(new()
             {
-                if (await MarkingVerifyService.VerifyProductWithLabel(request.ProductCode, request.Category))
-                {
-                    return _productRepository.Add(new()
-                    {
-                        ProductCode = request.ProductCode,
-                        Category = request.Category,
-                        ProductName = request.ProductName,
-                        Price = request.Price,
-                        Count = request.Count,
-                        AgeLimit = request.AgeLimit,
-                        ExpirationDate = request.ExpirationDate,
-                    });
-                }
-                return null;
-            }
-            else
-            {
-                    return _productRepository.Add(new()
-                    {
-                        ProductCode = request.ProductCode,
-                        Category = request.Category,
-                        ProductName = request.ProductName,
-                        Price = request.Price,
-                        Count = request.Count,
-                        AgeLimit = request.AgeLimit,
-                        ExpirationDate = request.ExpirationDate,
-                    });
-            }
+                ProductCode = request.ProductCode,
+                Category = request.Category,
+                ProductName = request.ProductName,
+                Price = request.Price,
+                Count = request.Count,
+            });
         }
 
         public async Task<ProductEntity> UpdateProduct(string productCode, UpdateProductRequest request)

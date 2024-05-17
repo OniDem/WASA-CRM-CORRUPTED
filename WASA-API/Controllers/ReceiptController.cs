@@ -4,7 +4,6 @@ using DTO.Receipt;
 using DTO.User;
 using Microsoft.AspNetCore.Mvc;
 using Services;
-using WASA_API.Service;
 
 namespace WASA_API.Controllers
 {
@@ -57,16 +56,6 @@ namespace WASA_API.Controllers
             if (ModelState.IsValid)
             {
                 return await _receiptService.Cancel(id, cancelReason);
-            }
-            return null;
-        }
-
-        [HttpPut]
-        public async Task<ReceiptEntity?> AgeConfirm(int id)
-        {
-            if(ModelState.IsValid)
-            {
-                return await _receiptService.AgeConfirm(id);
             }
             return null;
         }

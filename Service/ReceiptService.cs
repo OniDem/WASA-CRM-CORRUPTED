@@ -34,11 +34,6 @@ namespace Services
             return _receiptRepository.Cancel(id, cancelReason);
         }
 
-        public async Task<ReceiptEntity> AgeConfirm(int id)
-        {
-            return _receiptRepository.AgeConfirm(id);
-        }
-
         public async Task<ReceiptEntity> AddProducts(AddProductToReceiptRequest request)
         {
             return _receiptRepository.AddProducts(request);

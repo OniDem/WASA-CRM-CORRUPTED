@@ -13,9 +13,5 @@ namespace DTO.Product
         public double Price { get; set; }
 
         public double Count { get; set; }
-
-        public bool AgeLimit {  get; set; } = false;
-
-        public DateTime? ExpirationDate { get; set; }
     }
 }

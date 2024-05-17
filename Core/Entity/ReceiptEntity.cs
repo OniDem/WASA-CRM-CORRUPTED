@@ -26,8 +26,6 @@ namespace Core.Entity
 
         public PayMethodEnum? PayMethod { get; set; }
 
-        public bool AgeLimitConfirmed { get; set; }
-
         public double Total { get; set; }
 
         public bool Canceled { get; set; }

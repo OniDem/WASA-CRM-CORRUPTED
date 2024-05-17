@@ -1,6 +1,0 @@
-@MarkingVerifyAPI_HostAddress = http://localhost:5003
-
-GET {{MarkingVerifyAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
