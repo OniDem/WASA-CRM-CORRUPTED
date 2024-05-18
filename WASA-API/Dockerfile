@@ -7,21 +7,19 @@ EXPOSE 8080
 EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["WASA-API/WASA-API.csproj", "WASA-API/"]
+RUN dotnet restore "./WASA-API/WASA-API.csproj"
+COPY . .
+WORKDIR "/src/WASA-API"
+RUN dotnet build "./WASA-API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./WASA-API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-WORKDIR /Application
-
-COPY . ./
-
-RUN dotnet restore
-
-RUN dotnet publish -c Release -o output
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
-WORKDIR /Application
-
-COPY --from=builder /Application/output .
-
-ENTRYPOINT ["dotnet", "wasa-api.dll"]
-
-
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "WASA-API.dll"]
