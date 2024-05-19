@@ -1,0 +1,17 @@
+services:
+  server:
+    build:
+      context: .
+      target: final
+    ports:
+      - 8080:80
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:/config.json
+    command: --interval 30
+networks:
+  default:
+    external: true
+    name: host

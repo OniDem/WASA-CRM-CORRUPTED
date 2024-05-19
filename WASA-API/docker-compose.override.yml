@@ -1,0 +1,6 @@
+services:
+  wasaapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8080"
