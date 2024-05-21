@@ -23,4 +23,4 @@ RUN dotnet publish "./WASA-API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "WASA-API.dll", "--server.urls", "https://0.0.0.0:5000"]
+ENTRYPOINT ["dotnet", "WASA-API.dll"]
