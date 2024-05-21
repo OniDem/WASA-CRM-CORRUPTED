@@ -6,14 +6,11 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["WASA-API/WASA-API.csproj", "WASA-API/"]
-COPY ["Core/Core.csproj", "Core/"]
-COPY ["DTO/DTO.csproj", "DTO/"]
-COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
-COPY ["Service/Services.csproj", "Service/"]
 RUN dotnet restore "./WASA-API/WASA-API.csproj"
 COPY . .
 WORKDIR "/src/WASA-API"
