@@ -7,6 +7,7 @@
     <RootNamespace>WASA_API</RootNamespace>
     <UserSecretsId>0f57fa0a-4529-416f-9834-fe5e8ce0bcac</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>

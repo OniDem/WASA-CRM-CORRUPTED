@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  wasa-api:
+    image: ${DOCKER_REGISTRY-}wasaapi
+    build:
+      context: .
+      dockerfile: WASA-API/Dockerfile
+  proxy:
+    image: nginx:mainline  
