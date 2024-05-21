@@ -1,16 +1,10 @@
+version: '3.4'
 
 services:
-
-  WASA-API:
-    image: wasaapi
-    container_name: wasaapi
-    build: WASA-API
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      
-  Nginx:
-    image: nginx
-    container_name: nginx
-    build: Nginx
-    ports:
-      - 443:443
+  wasa-api:
+    image: ${DOCKER_REGISTRY-}wasaapi
+    build:
+      context: .
+      dockerfile: WASA-API/Dockerfile
+  proxy:
+    image: nginx:mainline  
