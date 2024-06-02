@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WASA_Mobile.Pages.WareHousePage"
+             Title="WareHousePage"
+             Style="{StaticResource DefaultContentPage}"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <ScrollView>
+        <Grid>
+            <VerticalStackLayout Margin="12, 12, 12, 55">
+                <Label Text="Данные о товарах" HorizontalOptions="Center" Margin="12" Style="{StaticResource DefaultLabelStyle}"/>
+                <Label Text="Количество: " x:Name="productCount" HorizontalOptions="Center" Margin="12" Style="{StaticResource DefaultLabelStyle}"/>
+                <Border StrokeThickness="2" >
+                    <ListView x:Name="wareHouseListView" ItemsSource="{Binding Products}" Margin="5" RowHeight="75" SelectionMode="Single" ItemSelected="wareHouseListView_ItemSelected">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid ColumnDefinitions="*, *" RowDefinitions="*, *, *" RowSpacing="2">
+                                        <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
+                                            <Label Text="Штрихкод: "  Style="{StaticResource DefaultLabelStyle}"/>
+                                            <Label Text="{Binding  ProductCode}" FontSize="18" Style="{StaticResource DefaultLabelStyle}"/>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Grid.Column="1" Grid.Row="0">
+                                            <Label Text="Категория: "  Style="{StaticResource DefaultLabelStyle}"/>
+                                            <Label Text="{Binding  Category}" FontSize="18" Style="{StaticResource DefaultLabelStyle}"/>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+                                            <Label Text="Наименование: "  Style="{StaticResource DefaultLabelStyle}"/>
+                                            <Label Text="{Binding  ProductName}" FontSize="18" Style="{StaticResource DefaultLabelStyle}"/>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Grid.Column="0"  Grid.Row="2">
+                                            <Label Text="Цена: "  Style="{StaticResource DefaultLabelStyle}"/>
+                                            <Label Text="{Binding  Price}" FontSize="18" Style="{StaticResource DefaultLabelStyle}"/>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Grid.Column="1"  Grid.Row="2">
+                                            <Label Text="Кол-во: "  Style="{StaticResource DefaultLabelStyle}"/>
+                                            <Label Text="{Binding  Count}" FontSize="18" Style="{StaticResource DefaultLabelStyle}"/>
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+            </VerticalStackLayout>
+
+            <Grid ColumnDefinitions="*, *, *" HorizontalOptions="FillAndExpand" HeightRequest="32" Margin="8" VerticalOptions="End" ZIndex="6">
+                <ImageButton Grid.Column="0" x:Name="ScanBarcodeButton" Clicked="ScanBarcodeButton_Clicked" Source="scan.svg"/>
+                <ImageButton Grid.Column="1" x:Name="ShiftButton" Clicked="ShiftButton_Clicked" Source="shift.svg"/>
+                <ImageButton Grid.Column="2" x:Name="BackToMainButton" Clicked="BackToMainButton_Clicked" Source="arrow_back.svg"/>
+            </Grid>
+            <Frame BackgroundColor="#f2f2f2" Opacity="0.3" CornerRadius="0" VerticalOptions="End" HeightRequest="48" Padding="8" ZIndex="5"/>
+        </Grid>
+    </ScrollView>
+</ContentPage>

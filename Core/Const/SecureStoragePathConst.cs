@@ -11,5 +11,7 @@
         public const string Username = "username";
 
         public const string Barcode = "Barcode";
+
+        public const string ShiftOpen = "ShiftOpen";
     }
 }

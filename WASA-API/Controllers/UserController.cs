@@ -21,8 +21,7 @@ namespace WASA_API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userService.RegUser(request);
-                return user;
+               return await _userService.RegUser(request);
             }
             return null;
         }

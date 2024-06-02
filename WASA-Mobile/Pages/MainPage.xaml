@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="WASA_Mobile.Pages.MainPage"
-             Style="{StaticResource DefaultContentPage}">
+             Style="{StaticResource DefaultContentPage}"
+             NavigatedTo="ContentPage_NavigatedTo">
 
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="#242323" StatusBarStyle="LightContent" />
@@ -16,13 +17,17 @@
                     <Label x:Name="UsernameLabel" TextColor="#f2f2f2" FontSize="18" HorizontalTextAlignment="Center" LineBreakMode="WordWrap" />
                 </Grid>
             </VerticalStackLayout>
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Button Text="Продажа" IsEnabled="False" Opacity="0.5" x:Name="SellButton" Clicked="SellButton_Clicked" FontSize="20" Style="{StaticResource DefaultButtonStyle}"/>
+                <Button Text="Возврат" IsEnabled="False" Opacity="0.5" x:Name="ReturnButton" Clicked="ReturnButton_Clicked" FontSize="20" Style="{StaticResource DefaultButtonStyle}"/>
+            </VerticalStackLayout>
             <Grid ColumnDefinitions="*, *, *, *" HorizontalOptions="FillAndExpand" HeightRequest="32" Margin="8" VerticalOptions="End" ZIndex="1">
-                <ImageButton Grid.Column="0" x:Name="First" Clicked="First_Clicked" Source="dotnet_bot.png"/>
-                <ImageButton Grid.Column="1" Source="dotnet_bot.png" />
-                <Image Grid.Column="2" Source="dotnet_bot.png"/>
-                <Button Grid.Column="3" Background="AntiqueWhite" x:Name="LogoutButton" Clicked="LogoutButton_Clicked" ZIndex="10" ImageSource="dotnet_bot.png"/>
+                <ImageButton Grid.Column="0" x:Name="ScanBarcodeButton" Clicked="ScanBarcodeButton_Clicked" Source="scan.svg"/>
+                <ImageButton Grid.Column="1" x:Name="ShiftButton" Clicked="ShiftButton_Clicked" Source="shift.svg"/>
+                <ImageButton Grid.Column="2" x:Name="WareHouseButton" Clicked="WareHouseButton_Clicked" Source="warehouse.svg"/>
+                <ImageButton Grid.Column="3" x:Name="LogoutButton" Clicked="LogoutButton_Clicked" Source="logout.svg"/>
             </Grid>
-            <Frame BackgroundColor="#f2f2f2" Opacity="0.1" CornerRadius="0" VerticalOptions="End" HeightRequest="48" Padding="8" ZIndex="0"/>
+            <Frame BackgroundColor="#f2f2f2" Opacity="0.3" CornerRadius="0" VerticalOptions="End" HeightRequest="48" Padding="8" ZIndex="0"/>
         </Grid>
     </ScrollView>
 

@@ -436,11 +436,13 @@
         <Setter Property="TextColor" Value="#242323"/>
         <Setter Property="CornerRadius" Value="16"/>
         <Setter Property="Margin" Value="16, 24"/>
-        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Padding" Value="24, 16"/>
+        <Setter Property="FontSize" Value="20"/>
     </Style>
 
     <Style x:Key="DefaultLabelStyle" TargetType="Label">
         <Setter Property="TextColor" Value="#f2f2f2"/>
+        <Setter Property="FontSize" Value="20"/>
     </Style>
 
     <Style x:Key="DefaultContentPage" TargetType="ContentPage">
