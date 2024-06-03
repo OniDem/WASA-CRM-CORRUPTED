@@ -45,12 +45,10 @@ builder.Services.AddDbContext<ApplicationContext>(options => { options.UseNpgsql
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<ReceiptRepository>();
-builder.Services.AddScoped<LoyaltyCardRepository>();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<ReceiptService>();
-builder.Services.AddScoped<LoyaltyCardService>();
 
 var app = builder.Build();
 
@@ -60,7 +58,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

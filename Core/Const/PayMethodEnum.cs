@@ -9,7 +9,6 @@ namespace Core.Const
     public enum PayMethodEnum
     {
         Cash = 0,
-        Acquiring = 1,
-        QRCode = 2
+        Acquiring = 1
     }
 }

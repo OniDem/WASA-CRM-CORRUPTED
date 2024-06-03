@@ -15,8 +15,8 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync(BaseServerConnectionString.GetFullUrl("User/AuthUser"), content);
-                if(response.StatusCode == HttpStatusCode.OK)
+                var response = await httpClient.PostAsync("http://212.20.46.249:32775/User/AuthUser", content);
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<UserEntity>();
                     if (result!.Id > 0)
@@ -34,7 +34,7 @@ namespace WASA_Mobile.Service
                 }
                 return ServerService.ResponseCodeToString(response.StatusCode)!;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return "Проверьте подключение к интернету";
             }

@@ -9,7 +9,6 @@ namespace Infrastructure
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<ProductEntity> Products { get; set; }
         public DbSet<ReceiptEntity> Receipts { get; set; }
-        public DbSet<LoyaltyCardEntity> LoyaltyCards { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> option) : base(option) { }
     }
