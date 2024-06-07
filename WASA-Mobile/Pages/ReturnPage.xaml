@@ -4,10 +4,14 @@
              x:Class="WASA_Mobile.Pages.ReturnPage"
              Title="ReturnPage"
              Style="{StaticResource DefaultContentPage}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout Margin="24, 0">
+        <ImageButton Source="arrow_back_light.svg" x:Name="BackButton" Clicked="BackButton_Clicked" HorizontalOptions="Start" VerticalOptions="Start" Rotation="180" HeightRequest="40" Margin="12"/>
+        <HorizontalStackLayout>
+            <Label Grid.Column="0" VerticalOptions="Center" Text="Номер чека:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
+            <Entry Grid.Column="1" VerticalOptions="Center" TextColor="#f2f2f2" x:Name="ReceiptEntry" FontSize="16" VerticalTextAlignment="Center"/>
+        </HorizontalStackLayout>
+        <Label Grid.Column="0" VerticalOptions="Center" Text="Выберите причину возврата" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
+        <Picker />
+        <Button Text="Вернуть" x:Name="ReturnButton"  Style="{StaticResource DefaultButtonStyle}"/>
     </VerticalStackLayout>
 </ContentPage>
