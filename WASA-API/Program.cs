@@ -45,10 +45,12 @@ builder.Services.AddDbContext<ApplicationContext>(options => { options.UseNpgsql
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<ReceiptRepository>();
+builder.Services.AddScoped<ShiftRepository>();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<ReceiptService>();
+builder.Services.AddScoped<ShiftService>();
 
 var app = builder.Build();
 

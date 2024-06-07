@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240607031314_NullableShiftEntity")]
+    partial class NullableShiftEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,17 +125,8 @@ namespace Infrastructure.Migrations
                     b.Property<double?>("Acquiring")
                         .HasColumnType("double precision");
 
-                    b.Property<bool?>("AcquiringApproved")
-                        .HasColumnType("boolean");
-
                     b.Property<double?>("Cash")
                         .HasColumnType("double precision");
-
-                    b.Property<double?>("CashBox")
-                        .HasColumnType("double precision");
-
-                    b.Property<List<string>>("CashBoxOperations")
-                        .HasColumnType("text[]");
 
                     b.Property<DateTime?>("CloseDate")
                         .HasColumnType("timestamp with time zone");
@@ -162,21 +156,9 @@ namespace Infrastructure.Migrations
 
                     NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("Acquiring"), true);
 
-                    b.HasIndex("AcquiringApproved");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("AcquiringApproved"), true);
-
                     b.HasIndex("Cash");
 
                     NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("Cash"), true);
-
-                    b.HasIndex("CashBox");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("CashBox"), true);
-
-                    b.HasIndex("CashBoxOperations");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("CashBoxOperations"), true);
 
                     b.HasIndex("CloseDate");
 

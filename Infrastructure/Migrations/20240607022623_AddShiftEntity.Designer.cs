@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240607022623_AddShiftEntity")]
+    partial class AddShiftEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,28 +122,20 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("Acquiring")
+                    b.Property<double>("Acquiring")
                         .HasColumnType("double precision");
 
-                    b.Property<bool?>("AcquiringApproved")
-                        .HasColumnType("boolean");
-
-                    b.Property<double?>("Cash")
+                    b.Property<double>("Cash")
                         .HasColumnType("double precision");
 
-                    b.Property<double?>("CashBox")
-                        .HasColumnType("double precision");
-
-                    b.Property<List<string>>("CashBoxOperations")
-                        .HasColumnType("text[]");
-
-                    b.Property<DateTime?>("CloseDate")
+                    b.Property<DateTime>("CloseDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("boolean");
 
                     b.Property<string>("ClosedBy")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("OpenBy")
@@ -151,52 +146,13 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<List<int>>("ReceiptsList")
+                        .IsRequired()
                         .HasColumnType("integer[]");
 
-                    b.Property<double?>("Total")
+                    b.Property<double>("Total")
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Acquiring");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("Acquiring"), true);
-
-                    b.HasIndex("AcquiringApproved");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("AcquiringApproved"), true);
-
-                    b.HasIndex("Cash");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("Cash"), true);
-
-                    b.HasIndex("CashBox");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("CashBox"), true);
-
-                    b.HasIndex("CashBoxOperations");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("CashBoxOperations"), true);
-
-                    b.HasIndex("CloseDate");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("CloseDate"), true);
-
-                    b.HasIndex("Closed");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("Closed"), true);
-
-                    b.HasIndex("ClosedBy");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("ClosedBy"), true);
-
-                    b.HasIndex("ReceiptsList");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("ReceiptsList"), true);
-
-                    b.HasIndex("Total");
-
-                    NpgsqlIndexBuilderExtensions.AreNullsDistinct(b.HasIndex("Total"), true);
 
                     b.ToTable("shifts");
                 });
