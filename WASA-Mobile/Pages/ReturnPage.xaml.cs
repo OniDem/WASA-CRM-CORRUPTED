@@ -6,4 +6,8 @@ public partial class ReturnPage : ContentPage
 	{
 		InitializeComponent();
 	}
+    private void BackButton_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushModalAsync(new MainPage());
+    }
 }

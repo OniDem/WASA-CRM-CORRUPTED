@@ -4,10 +4,66 @@
              x:Class="WASA_Mobile.Pages.SellPage"
              Title="SellPage"
              Style="{StaticResource DefaultContentPage}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
+            <ImageButton Source="arrow_back_light.svg" x:Name="BackButton" Clicked="BackButton_Clicked" HorizontalOptions="Start" VerticalOptions="Start" Rotation="180" HeightRequest="40" Margin="12"/>
+            <VerticalStackLayout Margin="24, 0" VerticalOptions="FillAndExpand">
+                <HorizontalStackLayout>
+                    <Label Grid.Column="0" VerticalOptions="Center" Text="Штрихкод:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
+                    <Entry Grid.Column="1" VerticalOptions="Center" TextColor="#f2f2f2" x:Name="BarcodeEntry" FontSize="16" VerticalTextAlignment="Center"/>
+                </HorizontalStackLayout>
+                <Button Text="Отсканировать штрихкод" x:Name="ScanBarcodeButton" Clicked="ScanBarcodeButton_Clicked" Style="{StaticResource DefaultButtonStyle}"/>
+                <HorizontalStackLayout>
+                    <Label Grid.Column="0" VerticalOptions="Center" Text="Наименование:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
+                    <Entry Grid.Column="1" VerticalOptions="Center"  TextColor="#f2f2f2" x:Name="NameEntry" FontSize="16" VerticalTextAlignment="Center"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Grid.Column="0" VerticalOptions="Center" Text="Количество:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
+                    <Entry Grid.Column="1" VerticalOptions="Center"  TextColor="#f2f2f2" x:Name="CountEntry" FontSize="16" VerticalTextAlignment="Center"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Grid.Column="0" VerticalOptions="Center" Text="Цена:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
+                    <Entry Grid.Column="1" VerticalOptions="Center"  TextColor="#f2f2f2" x:Name="PriceEntry" FontSize="16" VerticalTextAlignment="Center"/>
+                </HorizontalStackLayout>
+                <Button Text="Добавить" x:Name="AddProductButton" Clicked="AddProductButton_Clicked" Style="{StaticResource DefaultButtonStyle}"/>
+                <Border StrokeThickness="2">
+                    <ListView x:Name="receiptListView" ItemsSource="{Binding receiptList}" Margin="5" RowHeight="75" SelectionMode="None" VerticalScrollBarVisibility="Never">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid ColumnDefinitions="*, *" RowDefinitions="*, *, *" RowSpacing="2">
+                                        <HorizontalStackLayout Grid.Column="0" Grid.Row="0">
+                                            <Label Text="Штрихкод: " FontSize="18" Style="{StaticResource DefaultLabelStyle}" VerticalTextAlignment="Center"/>
+                                            <Label Text="{Binding  ProductCode}" FontSize="16" Style="{StaticResource DefaultLabelStyle}" VerticalTextAlignment="Center"/>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Grid.Column="1" Grid.Row="0" HorizontalOptions="End">
+                                            <Label Text="Категория: " FontSize="18" Style="{StaticResource DefaultLabelStyle}" VerticalTextAlignment="Center"/>
+                                            <Label Text="{Binding  Category}" FontSize="16" Style="{StaticResource DefaultLabelStyle}" VerticalTextAlignment="Center"/>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+                                            <Label Text="Наименование: " FontSize="18" Style="{StaticResource DefaultLabelStyle}" VerticalTextAlignment="Center"/>
+                                            <Label Text="{Binding  ProductName}" FontSize="16" Style="{StaticResource DefaultLabelStyle}" VerticalTextAlignment="Center"/>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Grid.Column="0"  Grid.Row="2">
+                                            <Label Text="Цена: " FontSize="18" Style="{StaticResource DefaultLabelStyle}" VerticalTextAlignment="Center"/>
+                                            <Label Text="{Binding  Price}" FontSize="16" Style="{StaticResource DefaultLabelStyle}" VerticalTextAlignment="Center"/>
+                                        </HorizontalStackLayout>
+                                        <HorizontalStackLayout Grid.Column="1"  Grid.Row="2" HorizontalOptions="End">
+                                            <Label Text="Кол-во: " FontSize="18" Style="{StaticResource DefaultLabelStyle}" VerticalTextAlignment="Center"/>
+                                            <Label Text="{Binding  Count}" FontSize="16" Style="{StaticResource DefaultLabelStyle}" VerticalTextAlignment="Center"/>
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+                <Grid ColumnDefinitions="*, *">
+                    <Button Grid.Column="0" Text="Наличные"  x:Name="CashButton" Clicked="PayButton_Clicked" Style="{StaticResource DefaultButtonStyle}"  IsEnabled="False" Opacity="0.5"/>
+                    <Button Grid.Column="1" Text="Эквайринг" x:Name="AcquiringButton" Clicked="AcquiringButton_Clicked" Style="{StaticResource DefaultButtonStyle}"  IsEnabled="False" Opacity="0.5"/>
+                </Grid>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
