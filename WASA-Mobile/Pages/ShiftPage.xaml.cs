@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Alerts;
+using Core.Const;
 using WASA_Mobile.Service;
 
 namespace WASA_Mobile.Pages;
@@ -31,8 +32,11 @@ public partial class ShiftPage : ContentPage
 
     private async void OpenShiftButton_Clicked(object sender, EventArgs e)
     {
-		if(await ShiftService.Open())
+        var response = await ShiftService.Open(new() { OpenBy = await SecureStorage.GetAsync(SecureStoragePathConst.Username) });
+
+        if (response != null)
 		{
+
             OpenShiftButton.IsEnabled = false;
             OpenShiftButton.Opacity = 0.5;
             InsertCashButton.IsEnabled = true;
@@ -44,9 +48,9 @@ public partial class ShiftPage : ContentPage
             CloseShiftButton.IsEnabled = true;
             CloseShiftButton.Opacity = 1;
 
-            DailyBillingLabel.Text = "Выручка за сегодня: " + (cash + acquiring);
-            CashBoxAmountLabel.Text = "В кассе:" + cash;
-            AcquiringAmountLabel.Text = "Эквайринг: " + acquiring;
+            DailyBillingLabel.Text = "Выручка за сегодня: " + (response.Total);
+            CashBoxAmountLabel.Text = "В кассе:" + response.Cash;
+            AcquiringAmountLabel.Text = "Эквайринг: " + response.Acquiring;
         }
     }
 

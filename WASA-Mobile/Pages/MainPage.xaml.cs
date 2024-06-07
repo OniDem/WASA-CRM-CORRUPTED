@@ -13,7 +13,7 @@ namespace WASA_Mobile.Pages
             {
                 Navigation.PushModalAsync(new HelloPage());
             }
-            UsernameLabel.Text = "Добро пожаловать " + UserService.GetUserInfoFromSecuteStorage().Username;
+            UsernameLabel.Text = "Добро пожаловать " + UserService.GetUserInfoFromSecureStorage().Username;
             if(ShiftService.ShiftOpen())
             {
                 SellButton.IsEnabled = true;

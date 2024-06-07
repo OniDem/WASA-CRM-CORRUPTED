@@ -12,6 +12,6 @@
 
         public const string Barcode = "Barcode";
 
-        public const string ShiftOpen = "ShiftOpen";
+        public const string ShiftID = "ShiftID";
     }
 }

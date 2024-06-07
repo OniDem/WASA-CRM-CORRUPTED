@@ -1,4 +1,8 @@
 ﻿using Core.Const;
+using Core.Entity;
+using DTO.Shift;
+using System.Net;
+using System.Net.Http.Json;
 
 namespace WASA_Mobile.Service
 {
@@ -6,24 +10,51 @@ namespace WASA_Mobile.Service
     {
         public static bool ShiftOpen()
         {
-
-            if (Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.ShiftOpen)).Result == "Open")
-                return true;
-            else
+            var result = Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.ShiftID)).Result;
+            if (result == null)
                 return false;
+            else
+                return true;
         }
 
-        public async static Task<bool> Open()
+        public async static Task<ShiftEntity> Open(OpenShiftRequest request)
         {
-            //Some code to call api methods
-            await SecureStorage.SetAsync(SecureStoragePathConst.ShiftOpen, "Open");
-            return true;
+            try
+            {
+                JsonContent content = JsonContent.Create(request);
+                HttpClient httpClient = new();
+                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Shift/OpenShift", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
+                    if (result!.Id > 0)
+                    {
+                        AddShiftToSecureStorage(new() { Id = result.Id });
+                        return result;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        private static async void AddShiftToSecureStorage(SecureStorageShiftEntity entity)
+        {
+            await SecureStorage.SetAsync(SecureStoragePathConst.ShiftID, entity.Id.ToString());
+        }
+
+        private static void RemoveShiftFromSecureStorage()
+        {
+            SecureStorage.Remove(SecureStoragePathConst.ShiftID);
         }
 
         public static bool Close()
         {
             //Some code to call api methods
-            SecureStorage.Remove(SecureStoragePathConst.ShiftOpen);
+            RemoveShiftFromSecureStorage();
             return true;
         }
     }
