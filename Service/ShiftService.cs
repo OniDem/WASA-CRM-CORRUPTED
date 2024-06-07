@@ -23,6 +23,11 @@ namespace Services
             return _shiftRepository.CloseShift(request);
         }
 
+        public async Task<ShiftEntity> ShowById(ShowByIdRequest request)
+        {
+            return _shiftRepository.ShowById(request);
+        }
+
         public async Task<ShiftEntity> AddReceiptToShift(AddReceiptToShiftRequest request)
         {
             return _shiftRepository.AddReceiptToShift(request);

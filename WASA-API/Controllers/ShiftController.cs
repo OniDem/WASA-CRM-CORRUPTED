@@ -36,6 +36,16 @@ namespace WASA_API.Controllers
             return null;
         }
 
+        [HttpPost]
+        public async Task<ShiftEntity?> ShowById(ShowByIdRequest request)
+        {
+            if(ModelState.IsValid)
+            {
+                return await _shiftService.ShowById(request);
+            }
+            return null;
+        }
+
         [HttpPut]
         public async Task<ShiftEntity?> AddReceiptToShift(AddReceiptToShiftRequest request)
         {
