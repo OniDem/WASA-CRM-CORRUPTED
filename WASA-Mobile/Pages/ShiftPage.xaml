@@ -7,15 +7,28 @@
     <ScrollView>
         <Grid>
             <VerticalStackLayout Margin="24, 40">
-                <Label Text="Выручка за сегодня: " x:Name="DailyBillingLabel" Style="{StaticResource DefaultLabelStyle}"/>
-                <Label Text="В кассе: " x:Name="CashBoxAmountLabel" Style="{StaticResource DefaultLabelStyle}"/>
-                <Label Text="Эквайринг: " x:Name="AcquiringAmountLabel" Style="{StaticResource DefaultLabelStyle}"/>
+                <HorizontalStackLayout>
+                    <Label Text="Выручка за сегодня: "  Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center"/>
+                    <Label x:Name="DailyBillingLabel" Text="{Binding Total}" Style="{StaticResource DefaultLabelStyle}"  VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Наличные: " Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center"/>
+                    <Label x:Name="CashLabel" Text="{Binding Cash}" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Эквайринг: " Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center"/>
+                    <Label x:Name="AcquiringAmountLabel" Text="{Binding Acquiring}" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="В кассе: " Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center"/>
+                    <Label x:Name="CashBoxAmountLabel" Text="{Binding CashBox}" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
             </VerticalStackLayout>
             <Grid RowDefinitions="*, *, *, *, *" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                 <Button Grid.Row="0" Text="Открыть" x:Name="OpenShiftButton" Clicked="OpenShiftButton_Clicked" Style="{StaticResource DefaultButtonStyle}"/>
                 <Button Grid.Row="1" Text="Внести наличные" x:Name="InsertCashButton" Clicked="InsertCashButton_Clicked" Style="{StaticResource DefaultButtonStyle}" IsEnabled="False" Opacity="0.5"/>
                 <Button Grid.Row="2" Text="Изъять наличные" x:Name="ExtractCashButton" Clicked="ExtractCashButton_Clicked" Style="{StaticResource DefaultButtonStyle}" IsEnabled="False" Opacity="0.5"/>
-                <Button Grid.Row="3" Text="Сверка эквайринга" x:Name="CloseAcquiringButton" Clicked="CloseAcquiringButton_Clicked" Style="{StaticResource DefaultButtonStyle}" IsEnabled="False" Opacity="0.5"/>
+                <Button Grid.Row="3" Text="Сверка эквайринга" x:Name="AcquiringApproveButton" Clicked="AcquiringApproveButton_Clicked" Style="{StaticResource DefaultButtonStyle}" IsEnabled="False" Opacity="0.5"/>
                 <Button Grid.Row="4" Text="Закрыть" x:Name="CloseShiftButton" Clicked="CloseShiftButton_Clicked" Style="{StaticResource DefaultButtonStyle}" IsEnabled="False" Opacity="0.5"/>
             </Grid>
 

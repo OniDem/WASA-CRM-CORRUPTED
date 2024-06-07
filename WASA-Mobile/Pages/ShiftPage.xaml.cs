@@ -1,14 +1,15 @@
 ﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Views;
 using Core.Const;
+using Core.Entity;
 using WASA_Mobile.Service;
 
 namespace WASA_Mobile.Pages;
 
 public partial class ShiftPage : ContentPage
 {
-    int cash = 0;
-    int acquiring = 551;
-	public ShiftPage()
+    private ShiftEntity currentShift = Task.Run(async () => await ShiftService.ShowById(new() { Id = Convert.ToInt32(await SecureStorage.GetAsync(SecureStoragePathConst.ShiftID)) })).Result;
+    public ShiftPage()
 	{
 		InitializeComponent();
 		if(ShiftService.ShiftOpen())
@@ -19,20 +20,22 @@ public partial class ShiftPage : ContentPage
             InsertCashButton.Opacity = 1;
             ExtractCashButton.IsEnabled = true;
             ExtractCashButton.Opacity = 1;
-            CloseAcquiringButton.IsEnabled = true;
-            CloseAcquiringButton.Opacity = 1;
+            AcquiringApproveButton.IsEnabled = true;
+            AcquiringApproveButton.Opacity = 1;
 			CloseShiftButton.IsEnabled = true;
             CloseShiftButton.Opacity = 1;
 
-            DailyBillingLabel.Text = "Выручка за сегодня: " + (cash + acquiring);
-            CashBoxAmountLabel.Text = "В кассе:" + cash;
-            AcquiringAmountLabel.Text = "Эквайринг: " + acquiring;
-		}
+            BindingContext = currentShift;
+            if(currentShift.AcquiringApproved == true)
+            {
+                AcquiringAmountLabel.Text += "✓";
+            }
+        }
 	}
 
     private async void OpenShiftButton_Clicked(object sender, EventArgs e)
     {
-        var response = await ShiftService.Open(new() { OpenBy = await SecureStorage.GetAsync(SecureStoragePathConst.Username) });
+        var response = await ShiftService.Open(new() { OpenBy = await SecureStorage.GetAsync(SecureStoragePathConst.Username), CashBox = Convert.ToDouble(await SecureStorage.GetAsync(SecureStoragePathConst.LastShiftCashBox)) });
 
         if (response != null)
 		{
@@ -43,14 +46,11 @@ public partial class ShiftPage : ContentPage
             InsertCashButton.Opacity = 1;
             ExtractCashButton.IsEnabled = true;
             ExtractCashButton.Opacity = 1;
-            CloseAcquiringButton.IsEnabled = true;
-            CloseAcquiringButton.Opacity = 1;
+            AcquiringApproveButton.IsEnabled = true;
+            AcquiringApproveButton.Opacity = 1;
             CloseShiftButton.IsEnabled = true;
             CloseShiftButton.Opacity = 1;
-
-            DailyBillingLabel.Text = "Выручка за сегодня: " + (response.Total);
-            CashBoxAmountLabel.Text = "В кассе:" + response.Cash;
-            AcquiringAmountLabel.Text = "Эквайринг: " + response.Acquiring;
+            BindingContext = currentShift;
         }
     }
 
@@ -60,7 +60,8 @@ public partial class ShiftPage : ContentPage
         {
             if (await DisplayAlert("Подтверждение закрытия смены", "Вы уверены, что хотите закрыть смену?", "Да", "Нет"))
             {
-                if (ShiftService.Close())
+                currentShift = await ShiftService.Close(new() { Id = currentShift.Id, ClosedBy = await SecureStorage.GetAsync(SecureStoragePathConst.Username) });
+                if (currentShift.Closed == true)
                 {
                     OpenShiftButton.IsEnabled = true;
                     OpenShiftButton.Opacity = 1;
@@ -68,14 +69,11 @@ public partial class ShiftPage : ContentPage
                     InsertCashButton.Opacity = 0.5;
                     ExtractCashButton.IsEnabled = false;
                     ExtractCashButton.Opacity = 0.5;
-                    CloseAcquiringButton.IsEnabled = false;
-                    CloseAcquiringButton.Opacity = 0.5;
+                    AcquiringApproveButton.IsEnabled = false;
+                    AcquiringApproveButton.Opacity = 0.5;
                     CloseShiftButton.IsEnabled = false;
                     CloseShiftButton.Opacity = 0.5;
-
-                    DailyBillingLabel.Text = "Выручка за сегодня: " + (cash + acquiring);
-                    CashBoxAmountLabel.Text = "В кассе:" + cash;
-                    AcquiringAmountLabel.Text = "Эквайринг: " + acquiring;
+                    await SecureStorage.SetAsync(SecureStoragePathConst.LastShiftCashBox, currentShift.CashBox.ToString());
                 }
             }
         }
@@ -101,31 +99,39 @@ public partial class ShiftPage : ContentPage
         Navigation.PushModalAsync(new MainPage());
     }
 
-    private void InsertCashButton_Clicked(object sender, EventArgs e)
+    private async void InsertCashButton_Clicked(object sender, EventArgs e)
     {
-        cash += 100;
-        DailyBillingLabel.Text = "Выручка за сегодня: " + (cash + acquiring);
-        CashBoxAmountLabel.Text = "В кассе:" + cash;
+        var popup = new CashOperationPopUpPage();
+        int result = (int)await this.ShowPopupAsync(popup, CancellationToken.None);
+        currentShift = await ShiftService.InsertCash(new() { Id = currentShift.Id, CashAmount = result });
+        BindingContext = currentShift;
     }
 
-    private void ExtractCashButton_Clicked(object sender, EventArgs e)
+    private async void ExtractCashButton_Clicked(object sender, EventArgs e)
     {
-        cash -= 100;
-        DailyBillingLabel.Text = "Выручка за сегодня: " + (cash + acquiring);
-        CashBoxAmountLabel.Text = "В кассе:" + cash;
+        var popup = new CashOperationPopUpPage();
+        int result = (int)await this.ShowPopupAsync(popup, CancellationToken.None);
+        currentShift = await ShiftService.ExtractCash(new() { Id = currentShift.Id, CashAmount = result });
+        BindingContext = currentShift;
     }
 
-    private async void CloseAcquiringButton_Clicked(object sender, EventArgs e)
+    private async void AcquiringApproveButton_Clicked(object sender, EventArgs e)
     {
-        if(AcquiringAmountLabel.Text.Contains("✓"))
+        if (AcquiringAmountLabel.Text.Contains('✓'))
         {
-            if(await DisplayAlert("Подтверждение", "Вы уверены что хотите сделать ещё одну сверку?", "Да", "Нет"))
+            if (await DisplayAlert("Подтверждение", "Вы уверены что хотите сделать ещё одну сверку?", "Да", "Нет"))
             {
-                AcquiringAmountLabel.Text += "✓";//Remove, now it simply show that`s check correctly work
+                currentShift = await ShiftService.AcquiringApprove(new() { Id = currentShift.Id });
+                if (currentShift.AcquiringApproved == true)
+                    AcquiringAmountLabel.Text += "✓";
             }
         }
         else
-            AcquiringAmountLabel.Text += "✓";
-
+        {
+            currentShift = await ShiftService.AcquiringApprove(new() {  Id = currentShift.Id });
+            if(currentShift.AcquiringApproved == true)
+                AcquiringAmountLabel.Text += "✓";
+        }
+        BindingContext = currentShift;
     }
 }

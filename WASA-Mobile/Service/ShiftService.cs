@@ -41,6 +41,122 @@ namespace WASA_Mobile.Service
             }
         }
 
+        public static async Task<ShiftEntity> ShowById(ShowByIdRequest request)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(request);
+                HttpClient httpClient = new();
+                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Shift/ShowById", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
+                    if (result!.Id > 0)
+                    {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static async Task<ShiftEntity> InsertCash(CashOperationRequest request)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(request);
+                HttpClient httpClient = new();
+                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Shift/InsertCash", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
+                    if (result!.Id > 0)
+                    {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static async Task<ShiftEntity> ExtractCash(CashOperationRequest request)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(request);
+                HttpClient httpClient = new();
+                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Shift/ExtractCash", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
+                    if (result!.Id > 0)
+                    {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static async Task<ShiftEntity> AcquiringApprove(AcquiringApproveRequest request)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(request);
+                HttpClient httpClient = new();
+                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Shift/AcquiringApprove", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
+                    if (result!.Id > 0)
+                    {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static async Task<ShiftEntity> Close(CloseShiftRequest request)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(request);
+                HttpClient httpClient = new();
+                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Shift/CloseShift", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
+                    if (result!.Id > 0)
+                    {
+                        RemoveShiftFromSecureStorage();
+                        return result;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         private static async void AddShiftToSecureStorage(SecureStorageShiftEntity entity)
         {
             await SecureStorage.SetAsync(SecureStoragePathConst.ShiftID, entity.Id.ToString());
@@ -51,11 +167,6 @@ namespace WASA_Mobile.Service
             SecureStorage.Remove(SecureStoragePathConst.ShiftID);
         }
 
-        public static bool Close()
-        {
-            //Some code to call api methods
-            RemoveShiftFromSecureStorage();
-            return true;
-        }
+        
     }
 }

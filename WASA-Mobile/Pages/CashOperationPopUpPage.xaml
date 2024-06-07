@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WASA_Mobile.Pages.CashOperationPopUpPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <VerticalStackLayout Background="#242323">
+        <Entry  Placeholder="Введите сумму" x:Name="CashAmountEntry" FontSize="24" Margin="24" Keyboard="Numeric" PlaceholderColor="#f2f2f2" TextColor="#f2f2f2"/>
+        <Button Text="Подтвердить" x:Name="ApproveButton" Clicked="ApproveButton_Clicked" Style="{StaticResource DefaultButtonStyle}"/>
+    </VerticalStackLayout>
+</toolkit:Popup>

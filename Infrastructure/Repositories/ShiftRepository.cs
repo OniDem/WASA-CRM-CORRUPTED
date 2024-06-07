@@ -22,7 +22,7 @@ namespace Infrastructure.Repositories
                 Cash = request.Cash,
                 CashBox = request.CashBox,
                 Acquiring = request.Acquiring,
-                AcquiringApproved = true,
+                AcquiringApproved = false,
                 Total = request.Total
             };
             _applicationContext.Shifts.Add(shiftEntity);

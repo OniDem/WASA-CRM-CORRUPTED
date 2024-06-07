@@ -13,5 +13,7 @@
         public const string Barcode = "Barcode";
 
         public const string ShiftID = "ShiftID";
+
+        public const string LastShiftCashBox = "LastShiftCashBox";
     }
 }
