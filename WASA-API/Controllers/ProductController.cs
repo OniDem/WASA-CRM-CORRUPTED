@@ -38,11 +38,11 @@ namespace WASA_API.Controllers
         }
 
         [HttpPost]
-        public async Task<ProductEntity?> ShowByProductCode(string productCode)
+        public async Task<ProductEntity?> ShowByProductCode(GetProductByCodeRequest request)
         {
             if(ModelState.IsValid)
             {
-                return await _productService.ShowByProductCode(productCode);
+                return await _productService.ShowByProductCode(request.ProductCode);
             }
             return null;
         }
