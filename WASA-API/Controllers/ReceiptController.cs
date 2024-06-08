@@ -71,11 +71,11 @@ namespace WASA_API.Controllers
         }
 
         [HttpPost]
-        public async Task<ReceiptEntity?> ShowById([FromBody] int id)
+        public async Task<ReceiptEntity?> ShowById([FromBody] GetReceiptByIdRequest request)
         {
             if (ModelState.IsValid)
             {
-                return await _receiptService.ShowById(id);
+                return await _receiptService.ShowById(request.Id);
             }
             return null;    
         }

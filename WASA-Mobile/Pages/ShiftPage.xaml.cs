@@ -31,13 +31,14 @@ public partial class ShiftPage : ContentPage
                 AcquiringAmountLabel.Text += "✓";
             }
         }
+        CashBoxAmountLabel.Text = Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.LastShiftCashBox)).Result;
 	}
 
     private async void OpenShiftButton_Clicked(object sender, EventArgs e)
     {
-        var response = await ShiftService.Open(new() { OpenBy = await SecureStorage.GetAsync(SecureStoragePathConst.Username), CashBox = Convert.ToDouble(await SecureStorage.GetAsync(SecureStoragePathConst.LastShiftCashBox)) });
+        var currentShift = await ShiftService.Open(new() { OpenBy = await SecureStorage.GetAsync(SecureStoragePathConst.Username), CashBox = Convert.ToDouble(await SecureStorage.GetAsync(SecureStoragePathConst.LastShiftCashBox)) });
 
-        if (response != null)
+        if (currentShift != null)
 		{
 
             OpenShiftButton.IsEnabled = false;
@@ -74,6 +75,9 @@ public partial class ShiftPage : ContentPage
                     CloseShiftButton.IsEnabled = false;
                     CloseShiftButton.Opacity = 0.5;
                     await SecureStorage.SetAsync(SecureStoragePathConst.LastShiftCashBox, currentShift.CashBox.ToString());
+                    AcquiringAmountLabel.Text = "0";
+                    CashBoxAmountLabel.Text = await SecureStorage.GetAsync(SecureStoragePathConst.LastShiftCashBox);
+
                 }
             }
         }

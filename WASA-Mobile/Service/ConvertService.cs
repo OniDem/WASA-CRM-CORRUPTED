@@ -1,10 +1,11 @@
 ﻿using Core.Const;
+using System.Collections.ObjectModel;
 
 namespace WASA_Mobile.Service
 {
     public static class ConvertService
     {
-        public static string CategoryConvertToString(CategoryEnum category)
+        public static string CategoryToString(CategoryEnum category)
         {
             switch (category)
             {
@@ -21,5 +22,21 @@ namespace WASA_Mobile.Service
             }
             
         }
+
+        public static CategoryEnum StringToCategory(string category)
+        {
+            switch (category)
+            {
+                case "Защита экрана":
+                    return CategoryEnum.ScreenProtect;
+                case "Провода":
+                    return CategoryEnum.Cable;
+                case "Наушники":
+                    return CategoryEnum.Headphones;
+                default:
+                    return CategoryEnum.Another;
+            }
+        }
+
     }
 }

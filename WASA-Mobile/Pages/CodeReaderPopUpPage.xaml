@@ -8,11 +8,5 @@
                CanBeDismissedByTappingOutsideOfPopup="True">
     <VerticalStackLayout Padding="16">
         <scanner:CameraView HeightRequest="200" WidthRequest="200" VerticalOptions="Center" HorizontalOptions="Center" CameraEnabled="True" x:Name="CodeScanner" OnDetectionFinished="CodeScanner_OnDetectionFinished"/>
-        
-        <StackLayout>
-            <Label Margin="12" x:Name="ScannedCode" Style="{StaticResource DefaultLabelStyle}"/>
-           <!-- <Button Margin="12" Text="Отсканировать ещё раз" Style="{StaticResource DefaultButtonStyle}" x:Name="ScanCodeAgain" Clicked="ScanCodeAgain_Clicked"/> -->
-            <!-- <Button Margin="12" Text="Удалить отксканированный код" Style="{StaticResource DefaultButtonStyle}" x:Name="DeleteScannedCode" Clicked="DeleteScannedCode_Clicked"/> -->
-        </StackLayout>
     </VerticalStackLayout>
 </toolkit:Popup>

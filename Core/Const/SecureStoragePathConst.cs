@@ -15,5 +15,7 @@
         public const string ShiftID = "ShiftID";
 
         public const string LastShiftCashBox = "LastShiftCashBox";
+
+        public const string ReceiptID = "ReceiptID";
     }
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WASA_Mobile.Pages.AddNewProductPage"
+             Title="AddNewProductPage"
+             Style="{StaticResource DefaultContentPage}">
+    <ScrollView>
+        <Grid>
+            <VerticalStackLayout>
+                <Label Text="Введите данные для добавления нового продукта"  Margin="24" Style="{StaticResource DefaultLabelStyle}"/>
+                <Grid ColumnDefinitions="*, 40" Margin="16, 0">
+                    <Entry Grid.Column="0" Placeholder="Штрихкод" TextChanged="ProductCodeEntry_TextChanged" FontSize="20" x:Name="ProductCodeEntry" TextColor="#f2f2f2" PlaceholderColor="#f2f2f2"  ZIndex="0" ClearButtonVisibility="WhileEditing"/>
+                    <ImageButton Grid.Column="1" x:Name="ScanProductCodeButton" Clicked="ScanProductCodeButton_Clicked" Style="{StaticResource ScanButtonStyle}"/>
+                </Grid>
+                <CarouselView x:Name="CategoryCarouselView" CurrentItemChanged="CategoryCarouselView_CurrentItemChanged" PeekAreaInsets="25" HeightRequest="75" BackgroundColor="Transparent">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"/>
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="CurrentItem">
+                                            <VisualState.Setters>
+                                                <Setter Property="Scale" Value="1.1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="PreviousItem">
+                                            <VisualState.Setters>
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="NextItem">
+                                            <VisualState.Setters>
+                                                <Setter Property="Opacity" Value="0.5" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="DefaultItem">
+                                            <VisualState.Setters>
+                                                <Setter Property="Opacity" Value="0.25" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Label Text="{Binding CategoryName}" Style="{StaticResource DefaultLabelStyle}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                <Entry Placeholder="Наименование" x:Name="NameEntry" FontSize="20" Margin="16, 0" TextColor="#f2f2f2" PlaceholderColor="#f2f2f2"  ZIndex="0" ClearButtonVisibility="WhileEditing"/>
+                <Entry Placeholder="Цена" Keyboard="Numeric" x:Name="PriceEntry" FontSize="20" Margin="16, 0" TextColor="#f2f2f2" PlaceholderColor="#f2f2f2"  ZIndex="0" ClearButtonVisibility="WhileEditing"/>
+                <Entry Placeholder="Количество" Keyboard="Numeric" x:Name="AmountEntry" FontSize="20" Margin="16, 0" TextColor="#f2f2f2" PlaceholderColor="#f2f2f2"  ZIndex="0" ClearButtonVisibility="WhileEditing"/>
+                <Button Text="Добавить" x:Name="AddProductButton" Clicked="AddProductButton_Clicked" Style="{StaticResource DefaultButtonStyle}"/>
+            </VerticalStackLayout>
+            <Grid ColumnDefinitions="*" HorizontalOptions="FillAndExpand" HeightRequest="32" Margin="8" VerticalOptions="End" ZIndex="6">
+                <ImageButton Grid.Column="0" x:Name="BackToMainButton" Clicked="BackToMainButton_Clicked" Source="arrow_back.svg"/>
+            </Grid>
+            <Frame BackgroundColor="#f2f2f2" Opacity="0.3" CornerRadius="0" VerticalOptions="End" HeightRequest="48" Padding="8" ZIndex="5"/>
+        </Grid>
+    </ScrollView>
+</ContentPage>

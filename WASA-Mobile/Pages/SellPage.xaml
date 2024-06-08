@@ -8,26 +8,26 @@
         <VerticalStackLayout>
             <ImageButton Source="arrow_back_light.svg" x:Name="BackButton" Clicked="BackButton_Clicked" HorizontalOptions="Start" VerticalOptions="Start" Rotation="180" HeightRequest="40" Margin="12"/>
             <VerticalStackLayout Margin="24, 0" VerticalOptions="FillAndExpand">
-                <HorizontalStackLayout>
+                <HorizontalStackLayout >
                     <Label Grid.Column="0" VerticalOptions="Center" Text="Штрихкод:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
-                    <Entry Grid.Column="1" VerticalOptions="Center" TextColor="#f2f2f2" x:Name="BarcodeEntry" FontSize="16" VerticalTextAlignment="Center"/>
+                    <Entry Grid.Column="1" VerticalOptions="Center" TextColor="#f2f2f2" x:Name="BarcodeEntry" FontSize="18" VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
                 <Button Text="Отсканировать штрихкод" x:Name="ScanBarcodeButton" Clicked="ScanBarcodeButton_Clicked" Style="{StaticResource DefaultButtonStyle}"/>
                 <HorizontalStackLayout>
                     <Label Grid.Column="0" VerticalOptions="Center" Text="Наименование:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
-                    <Entry Grid.Column="1" VerticalOptions="Center"  TextColor="#f2f2f2" x:Name="NameEntry" FontSize="16" VerticalTextAlignment="Center"/>
+                    <Entry Grid.Column="1" VerticalOptions="Center"  TextColor="#f2f2f2" x:Name="NameEntry" FontSize="18" VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout>
                     <Label Grid.Column="0" VerticalOptions="Center" Text="Количество:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
-                    <Entry Grid.Column="1" VerticalOptions="Center"  TextColor="#f2f2f2" x:Name="CountEntry" FontSize="16" VerticalTextAlignment="Center"/>
+                    <Entry Grid.Column="1" VerticalOptions="Center"  TextColor="#f2f2f2" x:Name="CountEntry" FontSize="18" VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout>
                     <Label Grid.Column="0" VerticalOptions="Center" Text="Цена:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
-                    <Entry Grid.Column="1" VerticalOptions="Center"  TextColor="#f2f2f2" x:Name="PriceEntry" FontSize="16" VerticalTextAlignment="Center"/>
+                    <Entry Grid.Column="1" VerticalOptions="Center"  TextColor="#f2f2f2" x:Name="PriceEntry" FontSize="18" VerticalTextAlignment="Center"/>
                 </HorizontalStackLayout>
                 <Button Text="Добавить" x:Name="AddProductButton" Clicked="AddProductButton_Clicked" Style="{StaticResource DefaultButtonStyle}"/>
                 <Border StrokeThickness="2">
-                    <ListView x:Name="receiptListView" ItemsSource="{Binding receiptList}" Margin="5" RowHeight="75" SelectionMode="None" VerticalScrollBarVisibility="Never">
+                    <ListView x:Name="receiptListView" ItemsSource="{Binding ProductList}" Margin="5" RowHeight="75" SelectionMode="None" VerticalScrollBarVisibility="Never">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

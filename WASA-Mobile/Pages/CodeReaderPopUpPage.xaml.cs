@@ -12,10 +12,7 @@ public partial class CodeReaderPopUpPage : Popup
     {
 		InitializeComponent();
         CodeScanner.CameraEnabled = true;
-        //For future :)
-        //var barcode = SecureStorage.GetAsync(SecureStoragePathConst.Barcode).Result;
-        //if (barcode != null )
-        //    ScannedCode.Text = "Отсканированный код: " + barcode;
+        Task.Run(async () => { await Permissions.RequestAsync<Permissions.Camera>(); });
     }
 
 
@@ -25,19 +22,8 @@ public partial class CodeReaderPopUpPage : Popup
         {
             var toast = Toast.Make("");
             CodeScanner.Handler?.DisconnectHandler();
-            var result = e?.BarcodeResults?.Any() == true ? e.BarcodeResults[0].DisplayValue : string.Empty;
+            string result = (e?.BarcodeResults?.Any()) != true ? string.Empty : e.BarcodeResults[0].DisplayValue;
             await CloseAsync(result);
-            //For future :)
-            //if (!await UserService.SecureStorageHaveValue(SecureStoragePathConst.Barcode))
-            //{
-            //    CodeScanner.Handler?.DisconnectHandler();
-            //    //await SecureStorage.SetAsync(SecureStoragePathConst.Barcode, barcode.ToString()!);
-            //    ScannedCode.Text = "Отсканированный код: " + result;
-            //    toast = Toast.Make("Код отсканирован");
-            //    await toast.Show();
-            //    await CloseAsync(result);
-                
-            //}
         }
     }
 
@@ -51,7 +37,6 @@ public partial class CodeReaderPopUpPage : Popup
         }
         if (!await UserService.SecureStorageHaveValue(SecureStoragePathConst.Barcode))
         {
-            ScannedCode.Text = null;
             CodeScanner.CameraEnabled = true;
         }
     }

@@ -35,13 +35,22 @@ public partial class WareHousePage : ContentPage
         Products = await ProductService.GetAllProducts();
         //wareHouseListView.ItemsSource = Products;
         productCount.Text = "Количество: " + Products.Count;
-        BindingContext = this;
+        Dispatcher.Dispatch(() =>
+        {
+            BindingContext = this;
+        });
+        
         wareHouseListView.EndRefresh();
     }
 
     private async void wareHouseListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         var product = e.SelectedItem as ProductEntity;
-        await DisplayAlert("Информация о товаре", "Штрихкод: " + product.ProductCode + "\n Категория: " + ConvertService.CategoryConvertToString(product.Category) + "\n Наименование: " + product.ProductName + "\n Цена: " + product.Price + "\n Количество: " + product.Count, "Ок");
+        await DisplayAlert("Информация о товаре", "Штрихкод: " + product.ProductCode + "\n Категория: " + ConvertService.CategoryToString(product.Category) + "\n Наименование: " + product.ProductName + "\n Цена: " + product.Price + "\n Количество: " + product.Count, "Ок");
+    }
+
+    private void AddNewProductButton_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushModalAsync(new AddNewProductPage());
     }
 }

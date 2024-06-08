@@ -40,13 +40,13 @@ public partial class ScanBarcodePage : ContentPage
                 {
                     var toast = Toast.Make(result as string + "Идёт поиск товара", CommunityToolkit.Maui.Core.ToastDuration.Long);
                     await toast.Show();
-                    var product = await ProductService.SearchProduct(result as string);
+                    var product = await ProductService.SearchProduct(new() { ProductCode = result as string });
                     if (product != null)
                     {
                         toast = Toast.Make("Товар найден", CommunityToolkit.Maui.Core.ToastDuration.Short);
                         await toast.Show();
                         BarcodeLabel.Text = "Штрихкод: " + product.ProductCode;
-                        CategoryLabel.Text = "Категория: " + ConvertService.CategoryConvertToString(product.Category);
+                        CategoryLabel.Text = "Категория: " + ConvertService.CategoryToString(product.Category);
                         NameLabel.Text = "Наименование: " + product.ProductName;
                         PriceLabel.Text = "Цена: " + product.Price;
                         CountLabel.Text = "Остаток: " + product.Count;
@@ -82,13 +82,13 @@ public partial class ScanBarcodePage : ContentPage
                 {
                     var toast = Toast.Make(result as string + "Идёт поиск товара", CommunityToolkit.Maui.Core.ToastDuration.Long);
                     await toast.Show();
-                    var product = await ProductService.SearchProduct(result as string);
+                    var product = await ProductService.SearchProduct(new() { ProductCode = result as string });
                     if (product != null)
                     {
                         toast = Toast.Make("Товар найден", CommunityToolkit.Maui.Core.ToastDuration.Short);
                         await toast.Show();
                         BarcodeLabel.Text = "Штрихкод: " + product.ProductCode;
-                        CategoryLabel.Text = "Категория: " + ConvertService.CategoryConvertToString(product.Category);
+                        CategoryLabel.Text = "Категория: " + ConvertService.CategoryToString(product.Category);
                         NameLabel.Text = "Наименование: " + product.ProductName;
                         PriceLabel.Text = "Цена: " + product.Price;
                         CountLabel.Text = "Остаток: " + product.Count;

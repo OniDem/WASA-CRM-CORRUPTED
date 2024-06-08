@@ -1,42 +1,79 @@
 ﻿using Core.Entity;
+using DTO.Product;
+using System.Net;
+using System.Net.Http.Json;
 
 namespace WASA_Mobile.Service
 {
     public static class ProductService
     {
-        public static async Task<ProductEntity?> SearchProduct(string productCode)
+        public static async Task<ProductEntity> SearchProduct(GetProductByCodeRequest request)
         {
-            //Some code to search product in database by productCode
-            if (productCode != null)
-                return new() { ProductCode = productCode, Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 };
-            else
-                return null;
+            try
+            {
+                JsonContent content = JsonContent.Create(request);
+                HttpClient httpClient = new();
+                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Product/ShowByProductCode", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<ProductEntity>();
+                    if (result!.ProductCode.Length > 0)
+                    {
+                        return result;
+                    }
+                }
+                return new() { ProductCode = ""};
+            }
+            catch (Exception ex)
+            {
+                return new() { ProductCode = "" };
+            }
         }
 
         public static async Task<List<ProductEntity>> GetAllProducts()
         {
-            return new()
+            try
             {
-                new() { ProductCode = "123456789", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "234567891", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "345678912", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "456789123", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "123456789", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "234567891", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "345678912", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "456789123", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "123456789", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "234567891", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "345678912", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "456789123", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "123456789", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "234567891", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "345678912", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "456789123", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "123456789", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "234567891", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 },
-                new() { ProductCode = "345678912", Category = Core.Const.CategoryEnum.Cable, ProductName = "Кабель Sky Dolphin S59T Type-C 1M магнитный чёрный", Price = 350, Count = 15 }
-            };
+                JsonContent content = JsonContent.Create("");
+                HttpClient httpClient = new();
+                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Product/ShowAll", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<List<ProductEntity>>();
+                    if (result != null)
+                    {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static async Task<ProductEntity> AddProduct(AddProductRequest request)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(request);
+                HttpClient httpClient = new();
+                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Product/Add", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<ProductEntity>();
+                    if (result!.ProductCode.Length > 0)
+                    {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
