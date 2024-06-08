@@ -33,6 +33,7 @@ namespace Infrastructure.Repositories
         public ShiftEntity CloseShift(CloseShiftRequest request)
         {
             ShiftEntity shiftEntity = ShowById(new() { Id = request.Id });
+            shiftEntity.Closed = true;
             shiftEntity.ClosedBy = request.ClosedBy;
             shiftEntity.CloseDate = DateTime.UtcNow;
             _applicationContext.Shifts.Update(shiftEntity);
