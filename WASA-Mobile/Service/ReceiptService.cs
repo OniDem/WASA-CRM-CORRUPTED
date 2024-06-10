@@ -38,23 +38,46 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Receipt/GetById", content);
+                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Receipt/ShowById", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ReceiptEntity>();
                     if (result!.Id > 0)
                     {
-                        AddReceiptToSecureStorage(new() { Id = result.Id });
                         return result;
                     }
                 }
-                return null;
+                return new() { Id = -1 };
             }
             catch (Exception ex)
             {
-                return null;
+                return new() { Id = -1 };
             }
         }
+
+        public async static Task<ReceiptEntity> AddProductToReceipt(AddProductToReceiptRequest request)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(request);
+                HttpClient httpClient = new();
+                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Receipt/AddProducts", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<ReceiptEntity>();
+                    if (result!.Id > 0)
+                    {
+                        return result;
+                    }
+                }
+                return new() { Id = -1 };
+            }
+            catch (Exception ex)
+            {
+                return new() { Id = -1 };
+            }
+        }
+
 
         private static async void AddReceiptToSecureStorage(GetReceiptByIdRequest request)
         {
