@@ -4,7 +4,6 @@ using Core.Const;
 using Core.Entity;
 using System.Collections.ObjectModel;
 using WASA_Mobile.Service;
-using static SQLite.SQLite3;
 
 namespace WASA_Mobile.Pages;
 

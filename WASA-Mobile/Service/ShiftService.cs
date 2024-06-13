@@ -157,6 +157,29 @@ namespace WASA_Mobile.Service
             }
         }
 
+        public static async Task<ShiftEntity> AddReceiptToShift(AddReceiptToShiftRequest request)
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create(request);
+                HttpClient httpClient = new();
+                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Shift/AddReceiptToShift", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
+                    if (result!.Id > 0)
+                    {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         private static async void AddShiftToSecureStorage(SecureStorageShiftEntity entity)
         {
             await SecureStorage.SetAsync(SecureStoragePathConst.ShiftID, entity.Id.ToString());

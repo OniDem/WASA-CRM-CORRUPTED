@@ -19,19 +19,19 @@ namespace Services
             return _receiptRepository.Add(request);
         }
 
-        public async Task<ReceiptEntity> Close(int id)
+        public async Task<ReceiptEntity> Close(GetReceiptByIdRequest request)
         {
-            return _receiptRepository.Close(id);
+            return _receiptRepository.Close(request);
         }
 
-        public async Task<ReceiptEntity> Payment(int id, PaymentReceiptRequest request)
+        public async Task<ReceiptEntity> Payment(PaymentReceiptRequest request)
         {
-            return _receiptRepository.Payment(id, request);
+            return _receiptRepository.Payment(request);
         }
 
-        public async Task<ReceiptEntity> Cancel(int id, CancelReasonEnum cancelReason)
+        public async Task<ReceiptEntity> Cancel(CancelReceiptRequest request)
         {
-            return _receiptRepository.Cancel(id, cancelReason);
+            return _receiptRepository.Cancel(request);
         }
 
         public async Task<ReceiptEntity> AddProducts(AddProductToReceiptRequest request)

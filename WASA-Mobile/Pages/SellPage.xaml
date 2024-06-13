@@ -58,6 +58,10 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Border>
+                <HorizontalStackLayout Margin="24">
+                    <Label VerticalOptions="Center" Text="Итого:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
+                    <Label VerticalOptions="Center"  TextColor="#f2f2f2" x:Name="TotalLabel" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
+                </HorizontalStackLayout>
                 <Grid ColumnDefinitions="*, *">
                     <Button Grid.Column="0" Text="Наличные"  x:Name="CashButton" Clicked="PayButton_Clicked" Style="{StaticResource DefaultButtonStyle}"  IsEnabled="False" Opacity="0.5"/>
                     <Button Grid.Column="1" Text="Эквайринг" x:Name="AcquiringButton" Clicked="AcquiringButton_Clicked" Style="{StaticResource DefaultButtonStyle}"  IsEnabled="False" Opacity="0.5"/>

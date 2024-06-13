@@ -33,9 +33,9 @@ namespace Infrastructure.Repositories
             return entity;
         }
 
-        public ReceiptEntity Close(int id)
+        public ReceiptEntity Close(GetReceiptByIdRequest request)
         {
-            var receipt = ShowById(id);
+            var receipt = ShowById(request.Id);
             if (!receipt!.Closed)
             {
                 receipt.ClosedDate = DateTime.UtcNow;
@@ -48,9 +48,9 @@ namespace Infrastructure.Repositories
             
         }
 
-        public ReceiptEntity Payment(int id, PaymentReceiptRequest request)
+        public ReceiptEntity Payment(PaymentReceiptRequest request)
         {
-            var receipt = ShowById(id);
+            var receipt = ShowById(request.Id);
             if(!receipt!.Closed)
             {
                 receipt.PayMethod = request.PayMethod;
@@ -64,10 +64,10 @@ namespace Infrastructure.Repositories
             return null!;
         }
 
-        public ReceiptEntity Cancel(int id, CancelReasonEnum cancelReason)
+        public ReceiptEntity Cancel(CancelReceiptRequest request)
         {
-            var receipt = ShowById(id);
-            receipt!.CancelReason = cancelReason;
+            var receipt = ShowById(request.Id);
+            receipt!.CancelReason = request.CancelReason;
             receipt.Canceled = true;
             receipt.CancelDate = DateTime.UtcNow;
 
@@ -80,11 +80,14 @@ namespace Infrastructure.Repositories
         {
             var receipt = ShowById(request.Id);
             
-            if(!receipt!.Closed || !receipt.Canceled)
+            if(receipt != null)
             {
-                _applicationContext.Receipts.Update(AddProductToEntity(receipt, request.ProductCodes!, request.ProductCounts));
-                _applicationContext.SaveChanges();
-                return receipt;
+                if (!receipt!.Closed || !receipt.Canceled)
+                {
+                    _applicationContext.Receipts.Update(AddProductToEntity(receipt, request.ProductCodes!, request.ProductCounts));
+                    _applicationContext.SaveChanges();
+                    return receipt;
+                }
             }
             return null!;
         }
@@ -139,18 +142,26 @@ namespace Infrastructure.Repositories
                     {
                         foreach (var productCode in receipt.ProductCodes.ToList())
                         {
-                            if (productCode == productCodes[i])
+
+                            if(receipt.ProductCodes.Contains(productCodes[i]))
                             {
-                                receipt.ProductCount![i] += productCounts[i];
-                                receipt.Total += product.Price * productCounts[i];
-                                break;
+                                if (productCode == productCodes[i])
+                                {
+                                    int index = receipt.ProductCodes.IndexOf(productCode);
+                                    receipt.ProductCount![index] += productCounts[i];
+                                    receipt.Total += product.Price * productCounts[i];
+                                }
                             }
+                            else
+                            {
                                 receipt.ProductCodes!.Add(product.ProductCode);
                                 receipt.ProductCategories!.Add(product.Category);
                                 receipt.ProductNames!.Add(product.ProductName);
                                 receipt.ProductPrices!.Add(product.Price);
                                 receipt.ProductCount!.Add(productCounts[i]);
                                 receipt.Total += product.Price * productCounts[i];
+                            }
+                                
                         }
                         return receipt;
                     }

@@ -8,10 +8,46 @@
         <ImageButton Source="arrow_back_light.svg" x:Name="BackButton" Clicked="BackButton_Clicked" HorizontalOptions="Start" VerticalOptions="Start" Rotation="180" HeightRequest="40" Margin="12"/>
         <HorizontalStackLayout>
             <Label Grid.Column="0" VerticalOptions="Center" Text="Номер чека:" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
-            <Entry Grid.Column="1" VerticalOptions="Center" TextColor="#f2f2f2" x:Name="ReceiptEntry" FontSize="16" VerticalTextAlignment="Center"/>
+            <Entry Grid.Column="1" VerticalOptions="Center" TextColor="#f2f2f2" x:Name="ReceiptIdEntry" FontSize="16" VerticalTextAlignment="Center"/>
         </HorizontalStackLayout>
         <Label Grid.Column="0" VerticalOptions="Center" Text="Выберите причину возврата" Style="{StaticResource DefaultLabelStyle}" FontSize="18" VerticalTextAlignment="Center"/>
+        <CarouselView x:Name="CancelReasonCarouselView" CurrentItemChanged="CancelReasonCarouselView_CurrentItemChanged" PeekAreaInsets="25" HeightRequest="75" BackgroundColor="Transparent">
+            <CarouselView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"/>
+            </CarouselView.ItemsLayout>
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="CurrentItem">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale" Value="1.1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="PreviousItem">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.5" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="NextItem">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.5" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="DefaultItem">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.25" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Label Text="{Binding CancelReasonName}" Style="{StaticResource DefaultLabelStyle}" HorizontalOptions="Center"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
         <Picker />
-        <Button Text="Вернуть" x:Name="ReturnButton"  Style="{StaticResource DefaultButtonStyle}"/>
+        <Button Text="Вернуть" x:Name="ReturnButton" Clicked="ReturnButton_Clicked" Style="{StaticResource DefaultButtonStyle}"/>
     </VerticalStackLayout>
 </ContentPage>

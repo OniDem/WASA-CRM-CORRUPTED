@@ -31,31 +31,31 @@ namespace WASA_API.Controllers
         }
 
         [HttpPut]
-        public async Task<ReceiptEntity?> Close([FromBody] int id)
+        public async Task<ReceiptEntity?> Close([FromBody] GetReceiptByIdRequest request)
         {
             if (ModelState.IsValid)
             {
-                return await _receiptService.Close(id);
+                return await _receiptService.Close(request);
             }
             return null;
         }
 
         [HttpPut]
-        public async Task<ReceiptEntity?> Payment(int id, PaymentReceiptRequest request)
+        public async Task<ReceiptEntity?> Payment(PaymentReceiptRequest request)
         {
             if (ModelState.IsValid)
             {
-                return await _receiptService.Payment(id, request);
+                return await _receiptService.Payment(request);
             }
             return null;
         }
 
         [HttpPut]
-        public async Task<ReceiptEntity?> Cancel(int id, CancelReasonEnum cancelReason)
+        public async Task<ReceiptEntity?> Cancel(CancelReceiptRequest request)
         {
             if (ModelState.IsValid)
             {
-                return await _receiptService.Cancel(id, cancelReason);
+                return await _receiptService.Cancel(request);
             }
             return null;
         }
