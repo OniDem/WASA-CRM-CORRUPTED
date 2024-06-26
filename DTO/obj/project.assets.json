@@ -387,9 +387,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj",
+      "projectUniqueName": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj",
       "projectName": "DTO",
-      "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj",
+      "projectPath": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj",
       "packagesPath": "C:\\Users\\OniDem1\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\DTO\\obj\\",
       "projectStyle": "PackageReference",
@@ -413,8 +413,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj": {
-              "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj"
+            "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\Core\\Core.csproj": {
+              "projectPath": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\Core\\Core.csproj"
             }
           }
         }

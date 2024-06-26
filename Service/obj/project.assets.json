@@ -2198,9 +2198,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Service\\Services.csproj",
+      "projectUniqueName": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\Service\\Services.csproj",
       "projectName": "Services",
-      "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Service\\Services.csproj",
+      "projectPath": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\Service\\Services.csproj",
       "packagesPath": "C:\\Users\\OniDem1\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\Service\\obj\\",
       "projectStyle": "PackageReference",
@@ -2224,14 +2224,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj": {
-              "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj"
+            "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\Core\\Core.csproj": {
+              "projectPath": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\Core\\Core.csproj"
             },
-            "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj": {
-              "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj"
+            "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj": {
+              "projectPath": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj"
             },
-            "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
