@@ -46,7 +46,7 @@ namespace Infrastructure.Repositories
             return _applicationContext.Shifts.FirstOrDefault(x => x.Id == request.Id)!;
         }
 
-        public ShiftEntity AddReceiptToShift(AddReceiptToShiftRequest request)
+        public ShiftEntity? AddReceiptToShift(AddReceiptToShiftRequest request)
         {
             ShiftEntity shiftEntity = ShowById(new() { Id = request.Id });
             if (shiftEntity == null)
@@ -71,7 +71,7 @@ namespace Infrastructure.Repositories
             else
                 return null;
         }
-        private ShiftEntity InsertCash(CashOperationRequest request, ShiftEntity shiftEntity)
+        private static ShiftEntity InsertCash(CashOperationRequest request, ShiftEntity shiftEntity)
         {
             if (shiftEntity.CashBoxOperations == null)
                 shiftEntity.CashBoxOperations = ["+" + request.CashAmount];
