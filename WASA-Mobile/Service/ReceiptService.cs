@@ -14,7 +14,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Receipt/Add", content);
+                var response = await httpClient.PostAsync("http://212.20.46.249:32777/Receipt/Add", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ReceiptEntity>();
@@ -38,7 +38,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Receipt/ShowById", content);
+                var response = await httpClient.PostAsync("http://212.20.46.249:32777/Receipt/ShowById", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ReceiptEntity>();
@@ -61,7 +61,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Receipt/AddProducts", content);
+                var response = await httpClient.PutAsync("http://212.20.46.249:32777/Receipt/AddProducts", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ReceiptEntity>();
@@ -84,7 +84,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Receipt/Payment", content);
+                var response = await httpClient.PutAsync("http://212.20.46.249:32777/Receipt/Payment", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ReceiptEntity>();
@@ -107,7 +107,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Receipt/Close", content);
+                var response = await httpClient.PutAsync("http://212.20.46.249:32777/Receipt/Close", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ReceiptEntity>();
@@ -130,7 +130,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Receipt/Cancel", content);
+                var response = await httpClient.PutAsync("http://212.20.46.249:32777/Receipt/Cancel", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ReceiptEntity>();

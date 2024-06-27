@@ -13,7 +13,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Product/ShowByProductCode", content);
+                var response = await httpClient.PostAsync("http://212.20.46.249:32777/Product/ShowByProductCode", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ProductEntity>();
@@ -36,7 +36,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create("");
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Product/ShowAll", content);
+                var response = await httpClient.PostAsync("http://212.20.46.249:32777/Product/ShowAll", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<List<ProductEntity>>();
@@ -59,7 +59,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Product/Add", content);
+                var response = await httpClient.PostAsync("http://212.20.46.249:32777/Product/Add", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ProductEntity>();

@@ -36,7 +36,7 @@ public partial class HelloPage : ContentPage
     {
         var popup = new CodeReaderPopUpPage();
         var result = await this.ShowPopupAsync(popup, CancellationToken.None);
-
+        var toast = Toast.Make("");
         if (result != null)
         {
             if (result is string)
@@ -48,25 +48,30 @@ public partial class HelloPage : ContentPage
                     var response = await UserService.AuthUser(new() { Username = LoginEntry.Text, Password = PasswordEntry.Text });
                     if (response == "Успешно")
                     {
+                        toast = Toast.Make("Вы успешно авторизованны");
+                        await toast.Show();
                         await Navigation.PushModalAsync(new MainPage());
-                        await DisplayAlert(Title, UserService.GetUserId().ToString(), "ok");
                     }
                     else if (response == "Пустой ответ")
                     {
-                        await DisplayAlert("Ответ от сервера", "Такого пользователя не существует, либо данные не совпадают", "ok");
+                        toast = Toast.Make("Такого пользователя не существует");
+                        await toast.Show();
                     }
                     else
-                        await DisplayAlert("Ответ от сервера", response, "ok");
+                    {
+                        toast = Toast.Make("Произошла ошибка");
+                        await toast.Show();
+                    }
                 }
                 else
                 {
-                    var toast = Toast.Make("Введите пароль!");
+                    toast = Toast.Make("Введите пароль!");
                     await toast.Show();
                 }
             }
             else
             {
-                var toast = Toast.Make("Введите логин");
+                toast = Toast.Make("Введите логин");
                 await toast.Show();
             }
         }
@@ -75,8 +80,8 @@ public partial class HelloPage : ContentPage
 
     private async void AuthButton_Clicked(object sender, EventArgs e)
     {
-        
-        if(LoginEntry.Text != null)
+        var toast = Toast.Make("");
+        if (LoginEntry.Text != null)
         {
             if(PasswordEntry.Text != null)
             {
@@ -87,32 +92,37 @@ public partial class HelloPage : ContentPage
                         var response = await UserService.AuthUser(new() { Username = LoginEntry.Text, Password = PasswordEntry.Text });
                         if (response == "Успешно")
                         {
+                            toast = Toast.Make("Вы успешно авторизованны");
+                            await toast.Show();
                             await Navigation.PushModalAsync(new MainPage());
-                            await DisplayAlert(Title, UserService.GetUserId().ToString(), "ok");
                         }
                         else if (response == "Пустой ответ")
                         {
-                            await DisplayAlert("Ответ от сервера", "Такого пользователя не существует, либо данные не совпадают", "ok");
+                            toast = Toast.Make("Такого пользователя не существует");
+                            await toast.Show();
                         }
                         else
-                            await DisplayAlert("Ответ от сервера", response, "ok");
+                        {
+                            toast = Toast.Make("Произошла ошибка");
+                            await toast.Show();
+                        }    
                     }
                     else
                     {
-                        var toast = Toast.Make("Введите пароль!");
+                        toast = Toast.Make("Введите пароль!");
                         await toast.Show();
                     }
                 }
             }
             else
             {
-                var toast = Toast.Make("Введите пароль");
+                toast = Toast.Make("Введите пароль");
                 await toast.Show();
             }
         }
         else
         {
-            var toast = Toast.Make("Введите логин");
+            toast = Toast.Make("Введите логин");
             await toast.Show();
         }
         

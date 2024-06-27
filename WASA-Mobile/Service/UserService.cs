@@ -14,7 +14,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://212.20.46.249:32769/User/AuthUser", content);
+                var response = await httpClient.PostAsync("http://212.20.46.249:32777/User/AuthUser", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<UserEntity>();
@@ -47,7 +47,14 @@ namespace WASA_Mobile.Service
 
         public static int GetUserId()
         {
-            return Convert.ToInt32(Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.Id)).Result);
+            try
+            {
+                return Convert.ToInt32(Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.Id)).Result);
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
         public static SecureStorageUserEntity GetUserInfoFromSecureStorage()
@@ -63,10 +70,18 @@ namespace WASA_Mobile.Service
 
         private static async void AddUserToSecureStorage(SecureStorageUserEntity entity)
         {
-            await SecureStorage.SetAsync(SecureStoragePathConst.Id, entity.Id.ToString());
-            await SecureStorage.SetAsync(SecureStoragePathConst.Role, entity.Role.ToString());
-            await SecureStorage.SetAsync(SecureStoragePathConst.FIO, entity.FIO);
-            await SecureStorage.SetAsync(SecureStoragePathConst.Username, entity.Username);
+            try
+            {
+                await SecureStorage.SetAsync(SecureStoragePathConst.Id, entity.Id.ToString());
+                await SecureStorage.SetAsync(SecureStoragePathConst.Role, entity.Role.ToString());
+                await SecureStorage.SetAsync(SecureStoragePathConst.FIO, entity.FIO);
+                await SecureStorage.SetAsync(SecureStoragePathConst.Username, entity.Username);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public static void RemoveUserFromSecureStorage()
