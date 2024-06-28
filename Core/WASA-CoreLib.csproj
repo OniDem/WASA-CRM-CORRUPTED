@@ -4,6 +4,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>WASA-CoreLib.06.27.24.001.Test</PackageId>
+	<Version>1.0.0</Version>
+	<Authors>OniDem</Authors>
+	<Company>OniDem</Company>
   </PropertyGroup>
 
   <ItemGroup>

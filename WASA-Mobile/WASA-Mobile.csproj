@@ -119,11 +119,6 @@
 	  </MauiXaml>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\Core\Core.csproj" />
-	  <ProjectReference Include="..\DTO\DTO.csproj" />
-	</ItemGroup>
-
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionWASAMobileHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

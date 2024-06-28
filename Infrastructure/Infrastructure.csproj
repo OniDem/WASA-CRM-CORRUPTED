@@ -18,11 +18,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\DTO\DTO.csproj" />
+    <PackageReference Include="WASA-CoreLib" Version="1.0.1" />
+    <PackageReference Include="WASA-DTOLib" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,4 @@
-﻿using Core.Const;
-
-namespace DTO.Receipt
+﻿namespace DTO.Receipt
 {
     public class AddProductToReceiptRequest
     {
