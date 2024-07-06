@@ -9,4 +9,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="WASA-CoreLib" Version="1.1.2" />
+    <PackageReference Include="WASA-DTOLib" Version="1.1.1" />
+  </ItemGroup>
+
 </Project>

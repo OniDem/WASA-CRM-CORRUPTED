@@ -46,7 +46,7 @@ public partial class WareHousePage : ContentPage
     private async void wareHouseListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         var product = e.SelectedItem as ProductEntity;
-        await DisplayAlert("Информация о товаре", "Штрихкод: " + product.ProductCode + "\n Категория: " + ConvertService.CategoryToString(product.Category) + "\n Наименование: " + product.ProductName + "\n Цена: " + product.Price + "\n Количество: " + product.Count, "Ок");
+        await DisplayAlert("Информация о товаре", "Штрихкод: " + product.ProductCode + "\n Категория: " + product.Category + "\n Наименование: " + product.ProductName + "\n Цена: " + product.Price + "\n Количество: " + product.Count, "Ок");
     }
 
     private void AddNewProductButton_Clicked(object sender, EventArgs e)

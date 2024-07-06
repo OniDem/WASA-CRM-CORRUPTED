@@ -1,6 +1,7 @@
 ﻿using Core.Entity;
 using DTO.Product;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace WASA_Mobile.Service
@@ -30,7 +31,7 @@ namespace WASA_Mobile.Service
             }
         }
 
-        public static async Task<List<ProductEntity>> GetAllProducts()
+        public static async Task<IEnumerable<ProductEntity>> GetAllProducts()
         {
             try
             {
@@ -39,7 +40,7 @@ namespace WASA_Mobile.Service
                 var response = await httpClient.PostAsync("https://onidem-wasa-api-c94a.twc1.net/Product/ShowAll", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    var result = await response.Content.ReadFromJsonAsync<List<ProductEntity>>();
+                    var result = await response.Content.ReadFromJsonAsync<IEnumerable<ProductEntity>>();
                     if (result != null)
                     {
                         return result;

@@ -46,7 +46,9 @@ public partial class ScanBarcodePage : ContentPage
                         toast = Toast.Make("Товар найден", CommunityToolkit.Maui.Core.ToastDuration.Short);
                         await toast.Show();
                         BarcodeLabel.Text = "Штрихкод: " + product.ProductCode;
-                        CategoryLabel.Text = "Категория: " + ConvertService.CategoryToString(product.Category);
+                        CategoryLabel.Text = "Категория: " + product.Category;
+                        CategoryLabel.Text = "Категория: " + product.Category;
+                        CategoryLabel.Text = "Категория: " + product.Category;
                         NameLabel.Text = "Наименование: " + product.ProductName;
                         PriceLabel.Text = "Цена: " + product.Price;
                         CountLabel.Text = "Остаток: " + product.Count;
@@ -88,7 +90,7 @@ public partial class ScanBarcodePage : ContentPage
                         toast = Toast.Make("Товар найден", CommunityToolkit.Maui.Core.ToastDuration.Short);
                         await toast.Show();
                         BarcodeLabel.Text = "Штрихкод: " + product.ProductCode;
-                        CategoryLabel.Text = "Категория: " + ConvertService.CategoryToString(product.Category);
+                        CategoryLabel.Text = "Категория: " + product.Category;
                         NameLabel.Text = "Наименование: " + product.ProductName;
                         PriceLabel.Text = "Цена: " + product.Price;
                         CountLabel.Text = "Остаток: " + product.Count;

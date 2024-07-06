@@ -8,9 +8,10 @@
         <Grid>
             <VerticalStackLayout>
                 <Label Text="Введите данные для добавления нового продукта"  Margin="24" Style="{StaticResource DefaultLabelStyle}"/>
-                <Grid ColumnDefinitions="*, 40" Margin="16, 0">
-                    <Entry Grid.Column="0" Placeholder="Штрихкод" TextChanged="ProductCodeEntry_TextChanged" FontSize="20" x:Name="ProductCodeEntry" TextColor="#f2f2f2" PlaceholderColor="#f2f2f2"  ZIndex="0" ClearButtonVisibility="WhileEditing"/>
-                    <ImageButton Grid.Column="1" x:Name="ScanProductCodeButton" Clicked="ScanProductCodeButton_Clicked" Style="{StaticResource ScanButtonStyle}"/>
+                <Grid ColumnDefinitions="*, 40" RowDefinitions="*, *" Margin="16, 0">
+                    <Entry Grid.Column="0" Grid.Row="0" Placeholder="Штрихкод" TextChanged="ProductCodeEntry_TextChanged" FontSize="20" x:Name="ProductCodeEntry" TextColor="#f2f2f2" PlaceholderColor="#f2f2f2"  ZIndex="0" ClearButtonVisibility="WhileEditing"/>
+                    <ImageButton Grid.Column="1" Grid.Row="0" x:Name="ScanProductCodeButton" Clicked="ScanProductCodeButton_Clicked" Style="{StaticResource ScanButtonStyle}"/>
+                    <Button Grid.Row="1" Grid.ColumnSpan="2" Text="Отправить на другое устройство"  Style="{StaticResource DefaultButtonStyle}" x:Name="sendCodeButton" Clicked="sendCodeButton_Clicked" HorizontalOptions="Fill"/>
                 </Grid>
                 <CarouselView x:Name="CategoryCarouselView" CurrentItemChanged="CategoryCarouselView_CurrentItemChanged" PeekAreaInsets="25" HeightRequest="75" BackgroundColor="Transparent">
                     <CarouselView.ItemsLayout>

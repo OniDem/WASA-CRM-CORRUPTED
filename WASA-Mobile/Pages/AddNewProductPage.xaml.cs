@@ -9,18 +9,14 @@ namespace WASA_Mobile.Pages;
 
 public partial class AddNewProductPage : ContentPage
 {
-    private readonly ObservableCollection<CategoryShowEntity> _categories = new()
-    {
-        new() { Category = CategoryEnum.ScreenProtect, CategoryName = "Защита экрана"},
-        new() { Category = CategoryEnum.Cable, CategoryName = "Провод"},
-        new() { Category = CategoryEnum.Headphones, CategoryName = "Наушники"},
-        new() { Category = CategoryEnum.Another, CategoryName = "Прочее"},
-    };
     private CategoryShowEntity _currentCategory;
 	public AddNewProductPage()
 	{
 		InitializeComponent();
-        CategoryCarouselView.ItemsSource = _categories;
+        Task.Run(async () =>
+        {
+            CategoryCarouselView.ItemsSource = await CategoryService.GetAll();
+        });
 	}
     private void BackToMainButton_Clicked(object sender, EventArgs e)
     {
@@ -57,7 +53,7 @@ public partial class AddNewProductPage : ContentPage
                             var result = await ProductService.AddProduct(new()
                             {
                                 ProductCode = ProductCodeEntry.Text,
-                                Category = _currentCategory.Category,
+                                Category = _currentCategory.CategoryName,
                                 ProductName = NameEntry.Text,
                                 Price = Convert.ToDouble(PriceEntry.Text),
                                 Count = Convert.ToDouble(AmountEntry.Text)
@@ -80,7 +76,7 @@ public partial class AddNewProductPage : ContentPage
         if(ProductCodeEntry.Text.Length == 13)
         {
             var product = await ProductService.SearchProduct(new() { ProductCode = ProductCodeEntry.Text });
-            if (product != null)
+            if (product.ProductCode.Length > 0)
             {
                 var toast = Toast.Make($"Продукт уже существует");
                 toast.Show();
@@ -91,6 +87,30 @@ public partial class AddNewProductPage : ContentPage
             {
                 AddProductButton.IsEnabled = true;
                 AddProductButton.Opacity = 1;
+            }
+        }
+    }
+
+    private async void sendCodeButton_Clicked(object sender, EventArgs e)
+    {
+        if(ProductCodeEntry.Text != null)
+        {
+            if(ProductCodeEntry.Text.Length == 13)
+            {
+                var data = await SharedDataService.Update(new() { UserId = Convert.ToInt32(await SecureStorage.GetAsync(SecureStoragePathConst.Id)), Barcode =  ProductCodeEntry.Text });
+                if(data != null)
+                {
+                    if (data.Barcode != null)
+                    {
+                        var toast = Toast.Make("Штрихкод отправлен");
+                        await toast.Show();
+                    }
+                }
+                else
+                {
+                    var toast = Toast.Make("При отправке произошла ошибка");
+                    await toast.Show();
+                }
             }
         }
     }

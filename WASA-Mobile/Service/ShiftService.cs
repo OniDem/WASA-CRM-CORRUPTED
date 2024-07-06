@@ -23,7 +23,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Shift/OpenShift", content);
+                var response = await httpClient.PostAsync("https://onidem-wasa-api-c94a.twc1.net/Shift/OpenShift", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
@@ -47,7 +47,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://212.20.46.249:32769/Shift/ShowById", content);
+                var response = await httpClient.PostAsync("https://onidem-wasa-api-c94a.twc1.net/Shift/ShowById", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
@@ -70,7 +70,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Shift/InsertCash", content);
+                var response = await httpClient.PutAsync("https://onidem-wasa-api-c94a.twc1.net/Shift/InsertCash", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
@@ -93,7 +93,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Shift/ExtractCash", content);
+                var response = await httpClient.PutAsync("https://onidem-wasa-api-c94a.twc1.net/Shift/ExtractCash", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
@@ -116,7 +116,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Shift/AcquiringApprove", content);
+                var response = await httpClient.PutAsync("https://onidem-wasa-api-c94a.twc1.net/Shift/AcquiringApprove", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
@@ -139,7 +139,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Shift/CloseShift", content);
+                var response = await httpClient.PutAsync("https://onidem-wasa-api-c94a.twc1.net/Shift/CloseShift", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
@@ -163,7 +163,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PutAsync("http://212.20.46.249:32769/Shift/AddReceiptToShift", content);
+                var response = await httpClient.PutAsync("https://onidem-wasa-api-c94a.twc1.net/Shift/AddReceiptToShift", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();

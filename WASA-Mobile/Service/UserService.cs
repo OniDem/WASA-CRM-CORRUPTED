@@ -14,7 +14,7 @@ namespace WASA_Mobile.Service
             {
                 JsonContent content = JsonContent.Create(request);
                 HttpClient httpClient = new();
-                var response = await httpClient.PostAsync("http://212.20.46.249:32769/User/AuthUser", content);
+                var response = await httpClient.PostAsync("https://onidem-wasa-api-c94a.twc1.net/User/AuthUser", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var result = await response.Content.ReadFromJsonAsync<UserEntity>();

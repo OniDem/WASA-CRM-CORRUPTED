@@ -1,0 +1,19 @@
+﻿<Window x:Class="WASA_Desktop.AutorizedPages.MainAdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WASA_Desktop.AutorizedPages"
+        mc:Ignorable="d"
+        Title="MainAdminWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Content="Склад" x:Name="wareHouseButton" Click="wareHouseButton_Click" Margin="10" Padding="5"/>
+            <Button Content="В разработке" IsEnabled="False" Margin="10" Padding="5"/>
+            <Button Content="В разработке" IsEnabled="False" Margin="10" Padding="5"/>
+            <Button Content="В разработке" IsEnabled="False" Margin="10" Padding="5"/>
+            <Button Content="В разработке" IsEnabled="False" Margin="10" Padding="5"/>
+        </StackPanel>
+        <Button Content="Назад" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="15" x:Name="backButton" Click="backButton_Click"/>
+    </Grid>
+</Window>
