@@ -161,11 +161,11 @@ public partial class SellPage : ContentPage
         var toast = Toast.Make("Производится синхронизация оплаты");
         await toast.Show();
         var receipt = await ReceiptService.Payment(new() { Id = currentReceipt.Id, PayMethod = PayMethodEnum.Cash, PaymentDate = DateTime.UtcNow, Total = currentReceipt.Total });
-        if(receipt.Id > 0)
+        if (receipt.Id > 0)
         {
             currentReceipt = receipt;
             receipt = await ReceiptService.Close(new() { Id = currentReceipt.Id });
-            if(receipt.Id > 0)
+            if (receipt.Id > 0)
             {
 
                 CashButton.IsEnabled = false;
@@ -177,8 +177,8 @@ public partial class SellPage : ContentPage
                 currentReceipt = new()
                 {
                     Id = -1,
-                    ProductCodes = new() {  },
-                    ProductCount = new() {  },
+                    ProductCodes = new() { },
+                    ProductCount = new() { },
                     PayMethod = PayMethodEnum.Cash,
                     Total = 0,
                     Seller = "",
@@ -186,17 +186,9 @@ public partial class SellPage : ContentPage
                 currentProduct = new();
                 SecureStorage.Remove(SecureStoragePathConst.ReceiptID);
                 receiptListView.ItemsSource = await FillProductListFromReceipt(currentReceipt);
-                switch (receipt.PayMethod)
-                {
-                    case PayMethodEnum.Cash:
-                        await ShiftService.AddReceiptToShift(new() { ReceiptId = receipt.Id, Cash = receipt.Total,  Acquiring = 0, Total = receipt.Total, Id = Convert.ToInt32(SecureStorage.GetAsync(SecureStoragePathConst.ShiftID)) });
-                        break;
-                    case PayMethodEnum.Acquiring:
-                        await ShiftService.AddReceiptToShift(new() { ReceiptId = receipt.Id, Cash = 0, Acquiring = receipt.Total, Total = receipt.Total, Id = Convert.ToInt32(SecureStorage.GetAsync(SecureStoragePathConst.ShiftID)) });
-                        break;
-                }
-                
+                await ShiftService.AddReceiptToShift(new() { ReceiptId = receipt.Id, Cash = receipt.Total, Acquiring = 0, Total = receipt.Total, Id = Convert.ToInt32(SecureStorage.GetAsync(SecureStoragePathConst.ShiftID)) });
             }
+
         }
     }
 
@@ -228,6 +220,7 @@ public partial class SellPage : ContentPage
                 currentProduct = new();
                 SecureStorage.Remove(SecureStoragePathConst.ReceiptID);
                 receiptListView.ItemsSource = await FillProductListFromReceipt(currentReceipt);
+                await ShiftService.AddReceiptToShift(new() { ReceiptId = receipt.Id, Cash = 0, Acquiring = receipt.Total, Total = receipt.Total, Id = Convert.ToInt32(SecureStorage.GetAsync(SecureStoragePathConst.ShiftID)) });
             }
         }
     }

@@ -18,9 +18,11 @@ namespace WASA_Desktop
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         public MainWindow()
         {
             InitializeComponent();
+            logger.Info(Title + " initialized");
         }
 
         private async void authButton_Click(object sender, RoutedEventArgs e)
@@ -30,7 +32,7 @@ namespace WASA_Desktop
             {
                 if(user.Id > 0)
                 {
-                    AuthUserEntity.Id = user.Id;
+                    AuthorizeUserDataEntity.Id = user.Id;
                     switch (user.Role)
                     {
                         case Core.Const.RoleEnum.Seller:
@@ -42,6 +44,7 @@ namespace WASA_Desktop
                         case Core.Const.RoleEnum.Director:
                             break;
                         case Core.Const.RoleEnum.Administrator:
+                            logger.Info("Admin Auth");
                             var adminMain = new MainAdminWindow();
                             adminMain.Show();
                             Close();
@@ -53,6 +56,7 @@ namespace WASA_Desktop
                 else
                 {
                     System.Windows.MessageBox.Show("Произошла ошибка при авторизации");
+                    logger.Info("user id < 0");
                 }
             }
             else

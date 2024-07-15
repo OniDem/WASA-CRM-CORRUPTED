@@ -45,7 +45,7 @@ namespace WASA_Desktop.AutorizedPages
         {
             if(_autoBarcodeUpdate)
             {
-                var data = await SharedDataService.GetData(new() { UserId = AuthUserEntity.Id });
+                var data = await SharedDataService.GetData(new() { UserId = AuthorizeUserDataEntity.Id });
                 if (data != null)
                 {
                     if(data.Barcode != null)
@@ -134,7 +134,7 @@ namespace WASA_Desktop.AutorizedPages
 
         private async void getCodeButton_Click(object sender, RoutedEventArgs e)
         {
-            var data = await SharedDataService.GetData(new() { UserId = AuthUserEntity.Id });
+            var data = await SharedDataService.GetData(new() { UserId = AuthorizeUserDataEntity.Id });
             if(data != null)
             {
                 if(data.Barcode != null)
@@ -157,7 +157,7 @@ namespace WASA_Desktop.AutorizedPages
 
         private async void barcodeBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            var data = await SharedDataService.GetData(new() { UserId = AuthUserEntity.Id });
+            var data = await SharedDataService.GetData(new() { UserId = AuthorizeUserDataEntity.Id });
             if (data != null)
             {
                 if (data.Barcode != null)

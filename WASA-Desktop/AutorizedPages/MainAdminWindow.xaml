@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="Склад" x:Name="wareHouseButton" Click="wareHouseButton_Click" Margin="10" Padding="5"/>
-            <Button Content="В разработке" IsEnabled="False" Margin="10" Padding="5"/>
+            <Button Content="Продажа" x:Name="receiptButton" Click="receiptButton_Click" Margin="10" Padding="5"/>
             <Button Content="В разработке" IsEnabled="False" Margin="10" Padding="5"/>
             <Button Content="В разработке" IsEnabled="False" Margin="10" Padding="5"/>
             <Button Content="В разработке" IsEnabled="False" Margin="10" Padding="5"/>
