@@ -9,8 +9,8 @@ namespace WASA_Mobile.Pages;
 
 public partial class AddNewProductPage : ContentPage
 {
-    private CategoryShowEntity _currentCategory;
-	public AddNewProductPage()
+    private CategoryShowEntity? _currentCategory;
+    public AddNewProductPage()
 	{
 		InitializeComponent();
         Task.Run(async () =>
@@ -53,13 +53,13 @@ public partial class AddNewProductPage : ContentPage
                             var result = await ProductService.AddProduct(new()
                             {
                                 ProductCode = ProductCodeEntry.Text,
-                                Category = _currentCategory.CategoryName,
+                                Category = _currentCategory!.CategoryName,
                                 ProductName = NameEntry.Text,
                                 Price = Convert.ToDouble(PriceEntry.Text),
                                 Count = Convert.ToDouble(AmountEntry.Text)
                             });
                             var toast = Toast.Make($"Продукт с штрихкодом: {result.ProductCode} добавлен");
-                            toast.Show();
+                            await toast.Show();
                             ProductCodeEntry.Text = "";
                             NameEntry.Text = "";
                             PriceEntry.Text = "";
@@ -79,7 +79,7 @@ public partial class AddNewProductPage : ContentPage
             if (product.ProductCode.Length > 0)
             {
                 var toast = Toast.Make($"Продукт уже существует");
-                toast.Show();
+                await toast.Show();
                 AddProductButton.IsEnabled = false;
                 AddProductButton.Opacity = 0.5;
             }

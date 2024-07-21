@@ -84,7 +84,7 @@ public partial class SellPage : ContentPage
         else
         {
             var toast = Toast.Make("Продукта с таким штрихкодом не существует");
-            toast.Show();
+            await toast.Show();
         }
     }
 

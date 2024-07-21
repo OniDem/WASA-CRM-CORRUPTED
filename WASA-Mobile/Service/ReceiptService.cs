@@ -26,7 +26,7 @@ namespace WASA_Mobile.Service
                 }
                 return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -49,7 +49,7 @@ namespace WASA_Mobile.Service
                 }
                 return new() { Id = -1 };
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new() { Id = -1 };
             }
@@ -72,7 +72,7 @@ namespace WASA_Mobile.Service
                 }
                 return new() { Id = -1 };
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new() { Id = -1 };
             }
@@ -95,7 +95,7 @@ namespace WASA_Mobile.Service
                 }
                 return new() { Id = -1 };
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new() { Id = -1 };
             }
@@ -118,7 +118,7 @@ namespace WASA_Mobile.Service
                 }
                 return new() { Id = -1 };
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new() { Id = -1 };
             }
@@ -141,7 +141,7 @@ namespace WASA_Mobile.Service
                 }
                 return new() { Id = -1 };
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new() { Id = -1 };
             }

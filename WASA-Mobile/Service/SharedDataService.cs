@@ -24,7 +24,7 @@ namespace WASA_Mobile.Service
                 }
                 return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

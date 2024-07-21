@@ -33,7 +33,7 @@ namespace WASA_Mobile.Service
                 }
                 return ServerService.ResponseCodeToString(response.StatusCode)!;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "Проверьте подключение к интернету";
             }
@@ -47,7 +47,7 @@ namespace WASA_Mobile.Service
 
         public static int GetUserId()
         {
-            return Convert.ToInt32(Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.Id)).Result);
+            return Convert.ToInt32(Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.Id)).Result);//If Exception has been thrown by the target of an invocation, set backup in AndroidManifest to false
         }
 
         public static SecureStorageUserEntity GetUserInfoFromSecureStorage()
