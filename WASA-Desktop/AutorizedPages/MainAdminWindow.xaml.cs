@@ -32,5 +32,12 @@ namespace WASA_Desktop.AutorizedPages
             receiptWindow.Show();
             Close();
         }
+
+        private void receiptViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            var receiptViewWindow = new ReceiptViewWindow();
+            receiptViewWindow.Show();
+            Close();
+        }
     }
 }
