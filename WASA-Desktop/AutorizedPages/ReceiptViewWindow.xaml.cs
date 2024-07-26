@@ -10,23 +10,28 @@ namespace WASA_Desktop.AutorizedPages
     /// </summary>
     public partial class ReceiptViewWindow : Window
     {
-        private readonly List<int> _shiftIds = [1, 2];
+        
         private int _selectedShift;
         public ReceiptViewWindow()
         {
             InitializeComponent();
-            _shiftIds.Reverse();
-            for (int i = 0; i < _shiftIds!.Count(); i++)
+            Dispatcher.Invoke(async () =>
             {
-                RadioButton radioButton = new()
+                List<int> _shiftIds = await ShiftService.ShowAllIds();
+                _shiftIds.Reverse();
+                for (int i = 0; i < _shiftIds!.Count(); i++)
                 {
-                    GroupName = "Shifts",
-                    Content = _shiftIds![i],
-                    Margin = new(2)
-                };
-                radioButton.Click += RadioButton_Click;
-                shiftChoiceStackPanel.Children.Add(radioButton);
-            }
+                    RadioButton radioButton = new()
+                    {
+                        GroupName = "Shifts",
+                        Content = _shiftIds![i],
+                        Margin = new(2)
+                    };
+                    radioButton.Click += RadioButton_Click;
+                    shiftChoiceStackPanel.Children.Add(radioButton);
+                }
+            });
+            
         }
 
         private void RadioButton_Click(object sender, RoutedEventArgs e)
@@ -36,7 +41,10 @@ namespace WASA_Desktop.AutorizedPages
 
         private async void showButton_Click(object sender, RoutedEventArgs e)
         {
-            receiptsDG.ItemsSource = await GetReceiptListByShiftID(_selectedShift);
+            if(_selectedShift > 0)
+            {
+                receiptsDG.ItemsSource = await GetReceiptListByShiftID(_selectedShift);
+            }
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)

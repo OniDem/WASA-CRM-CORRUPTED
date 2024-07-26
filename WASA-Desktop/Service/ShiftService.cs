@@ -65,6 +65,43 @@ namespace WASA_Mobile.Service
                 return null;
             }
         }
+        /// <summary>
+        /// TODO: Re-write to API request
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<List<ShiftEntity>> ShowAll()
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create("");
+                HttpClient httpClient = new();
+                var response = await httpClient.PostAsync("https://onidem-wasa-api-c94a.twc1.net/Shift/ShowAll", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<List<ShiftEntity>>();
+                    if (result!.Count > 0)
+                    {
+                        return result;
+                    }
+                }
+                return [];
+            }
+            catch (Exception )
+            {
+                return [];
+            }
+        }
+
+        public static async Task<List<int>> ShowAllIds()
+        {
+           var shifts = await ShowAll();
+            List<int> listToReturn = [];
+            foreach (var shift in shifts)
+                listToReturn.Add(shift.Id);
+            return listToReturn;
+                
+
+        }
 
         public static async Task<ShiftEntity> InsertCash(CashOperationRequest request)
         {
