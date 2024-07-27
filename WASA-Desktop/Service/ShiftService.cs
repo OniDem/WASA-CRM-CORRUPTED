@@ -69,7 +69,7 @@ namespace WASA_Mobile.Service
         /// TODO: Re-write to API request
         /// </summary>
         /// <returns></returns>
-        public static async Task<List<ShiftEntity>> ShowAll()
+        public static async Task<IEnumerable<ShiftEntity>> ShowAll()
         {
             try
             {
@@ -78,10 +78,10 @@ namespace WASA_Mobile.Service
                 var response = await httpClient.PostAsync("https://onidem-wasa-api-c94a.twc1.net/Shift/ShowAll", content);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    var result = await response.Content.ReadFromJsonAsync<List<ShiftEntity>>();
-                    if (result!.Count > 0)
+                    var result = await response.Content.ReadFromJsonAsync<IEnumerable<ShiftEntity>>();
+                    if (result!.Count() > 0)
                     {
-                        return result;
+                        return result!;
                     }
                 }
                 return [];
