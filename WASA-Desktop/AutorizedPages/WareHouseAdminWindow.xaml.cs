@@ -3,7 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-using WASA_Mobile.Service;
+using WASA_CoreLib.Entity;
+using WASA_Desktop.Service;
 
 namespace WASA_Desktop.AutorizedPages
 {
@@ -45,7 +46,7 @@ namespace WASA_Desktop.AutorizedPages
         {
             if(_autoBarcodeUpdate)
             {
-                var data = await SharedDataService.GetData(new() { UserId = AuthorizeUserDataEntity.Id });
+                var data = await SharedDataService.GetData(new() { UserId = AuthorizedUserDataEntity.Id });
                 if (data != null)
                 {
                     if(data.Barcode != null)
@@ -134,7 +135,7 @@ namespace WASA_Desktop.AutorizedPages
 
         private async void getCodeButton_Click(object sender, RoutedEventArgs e)
         {
-            var data = await SharedDataService.GetData(new() { UserId = AuthorizeUserDataEntity.Id });
+            var data = await SharedDataService.GetData(new() { UserId = AuthorizedUserDataEntity.Id });
             if(data != null)
             {
                 if(data.Barcode != null)
@@ -157,7 +158,7 @@ namespace WASA_Desktop.AutorizedPages
 
         private async void barcodeBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            var data = await SharedDataService.GetData(new() { UserId = AuthorizeUserDataEntity.Id });
+            var data = await SharedDataService.GetData(new() { UserId = AuthorizedUserDataEntity.Id });
             if (data != null)
             {
                 if (data.Barcode != null)

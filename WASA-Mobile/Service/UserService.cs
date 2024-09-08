@@ -39,8 +39,9 @@ namespace WASA_Mobile.Service
             }
         }
         public static bool UserAutorized()
-        { 
-            if (GetUserId() > 0)
+        {
+            var id = GetUserId();
+            if (id > 0)
                 return true;
             return false;
         }

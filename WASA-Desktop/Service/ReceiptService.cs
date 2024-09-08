@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 
-namespace WASA_Mobile.Service
+namespace WASA_Desktop.Service
 {
     public static class ReceiptService
     {

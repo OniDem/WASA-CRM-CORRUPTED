@@ -71,12 +71,12 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.70" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.70" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.80" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.80" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
-		<PackageReference Include="WASA-CoreLib" Version="1.1.2" />
-		<PackageReference Include="WASA-DTOLib" Version="1.1.2" />
+		<PackageReference Include="WASA-CoreLib" Version="1.1.7" />
+		<PackageReference Include="WASA-DTOLib" Version="1.1.61" />
 	</ItemGroup>
 
 	<ItemGroup>

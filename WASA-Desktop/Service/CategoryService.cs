@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using System.Net;
 using System.Net.Http;
 
-namespace WASA_Mobile.Service
+namespace WASA_Desktop.Service
 {
     public static class CategoryService
     {

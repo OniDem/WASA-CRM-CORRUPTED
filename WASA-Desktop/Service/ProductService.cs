@@ -4,12 +4,14 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 
-namespace WASA_Mobile.Service
+namespace WASA_Desktop.Service
 {
     public static class ProductService
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         public static async Task<ProductEntity> SearchProduct(GetProductByCodeRequest request)
         {
+            logger.Info("Called SearchProduct");
             try
             {
                 JsonContent content = JsonContent.Create(request);
@@ -20,9 +22,11 @@ namespace WASA_Mobile.Service
                     var result = await response.Content.ReadFromJsonAsync<ProductEntity>();
                     if (result!.ProductCode.Length > 0)
                     {
+                        logger.Info("SearchProduct finished successful");
                         return result;
                     }
                 }
+                logger.Info($"SearchProduct finished with {response.StatusCode}");
                 return new() { ProductCode = ""};
             }
             catch (Exception ex)

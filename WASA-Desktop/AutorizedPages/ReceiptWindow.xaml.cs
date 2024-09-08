@@ -4,7 +4,8 @@ using DTO.Receipt;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
-using WASA_Mobile.Service;
+using WASA_CoreLib.Entity;
+using WASA_Desktop.Service;
 
 namespace WASA_Desktop.AutorizedPages
 {
@@ -18,14 +19,26 @@ namespace WASA_Desktop.AutorizedPages
         private readonly int _timerTime = 1 * 1000; //multiplier(1sec=1000ms) 
         DispatcherTimer timer = new();
         private bool _autoBarcodeUpdate = false;
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         public ReceiptWindow()
         {
             InitializeComponent();
+            logger.Info(Title + " initialized");
             timer.Tick += Timer_Tick;
             timer.Interval = new TimeSpan(0, 0, _timerTime);//hh,mm,ss
-
+            logger.Info($"Timer created with interval {_timerTime}ms");
             ///
-            AuthorizeUserDataEntity.ShiftId = 1;
+            var data = Task.Run(async () => await SharedDataService.GetData(new() { UserId = AuthorizedUserDataEntity.Id })).Result;
+            AuthorizedUserDataEntity.ShiftId = data.OpenedShiftId;
+            logger.Info($"Shift id is {data.OpenedShiftId}");
+            if (data.OpenedShiftId < 1)
+            {
+                getCodeButton.IsEnabled = false;
+                autoCheckBox.IsEnabled = false;
+                addButton.IsEnabled = false;
+                cashButton.IsEnabled = false;
+                acquiringButton.IsEnabled = false;
+            }
             ///
         }
 
@@ -33,12 +46,13 @@ namespace WASA_Desktop.AutorizedPages
         {
             if (_autoBarcodeUpdate)
             {
-                var data = await SharedDataService.GetData(new() { UserId = AuthorizeUserDataEntity.Id });
+                var data = await SharedDataService.GetData(new() { UserId = AuthorizedUserDataEntity.Id });
                 if (data != null)
                     if (data.Barcode != null)
                         barcodeBox.Text = data.Barcode;
                     else
                         DisplayStatus("error", _timerTime, "При получении штрихкода произошла ошибка");
+                logger.Info($"Barcode data catched from other device");
             }
         }
 
@@ -50,21 +64,26 @@ namespace WASA_Desktop.AutorizedPages
                     {
                         e.Cancel = true;
                         DisplayStatus("warning", _timerTime, "Проведите оплату, либо отмените чек");
+                        logger.Info(Title + $" close canceled, because receipt not closed");
                     }
+            logger.Info(Title + $"closed");
         }
 
         private async void cashButton_Click(object sender, RoutedEventArgs e)
         {
             DisplayStatus("warning", _timerTime, "Производится синхронизация оплаты");
             var receipt = await ReceiptService.Payment(new() { Id = _currentReceipt.Id, PayMethod = PayMethodEnum.Cash, PaymentDate = DateTime.UtcNow, Total = _currentReceipt.Total });
+            logger.Info($"Receipt №{receipt.Id} paid by cash");
             if (receipt.Id > 0)
             {
                 _currentReceipt = receipt;
                 receipt = await ReceiptService.Close(new() { Id = _currentReceipt.Id });
+                logger.Info($"Receipt №{receipt.Id} closed");
                 if (receipt.Id > 0)
                 {
-                    await ShiftService.AddReceiptToShift(new() { ReceiptId = receipt.Id, Cash = receipt.Total, Acquiring = 0, Total = receipt.Total, Id = Convert.ToInt32(AuthorizeUserDataEntity.ShiftId) });
+                    await ShiftService.AddReceiptToShift(new() { ReceiptId = receipt.Id, Cash = receipt.Total, Acquiring = 0, Total = receipt.Total, Id = Convert.ToInt32(AuthorizedUserDataEntity.ShiftId) });
                     DisplayStatus("good", _timerTime, "Чек успешно закрыт");
+                    logger.Info($"Receipt №{receipt.Id} added to shift №{AuthorizedUserDataEntity.ShiftId}");
                     _currentProduct = new();
                     barcodeBox.Text = "";
                     cashButton.IsEnabled = false;
@@ -93,14 +112,17 @@ namespace WASA_Desktop.AutorizedPages
         {
             DisplayStatus("warning", _timerTime, "Производится синхронизация оплаты");
             var receipt = await ReceiptService.Payment(new() { Id = _currentReceipt.Id, PayMethod = PayMethodEnum.Acquiring, PaymentDate = DateTime.UtcNow, Total = _currentReceipt.Total });
+            logger.Info($"Receipt №{receipt.Id} paid by acquiring");
             if (receipt.Id > 0)
             {
                 _currentReceipt = receipt;
                 receipt = await ReceiptService.Close(new() { Id = _currentReceipt.Id });
+                logger.Info($"Receipt №{receipt.Id} closed");
                 if (receipt.Id > 0)
                 {
-                    await ShiftService.AddReceiptToShift(new() { ReceiptId = receipt.Id, Cash = 0, Acquiring = receipt.Total, Total = receipt.Total, Id = Convert.ToInt32(AuthorizeUserDataEntity.ShiftId) });
+                    await ShiftService.AddReceiptToShift(new() { ReceiptId = receipt.Id, Cash = 0, Acquiring = receipt.Total, Total = receipt.Total, Id = Convert.ToInt32(AuthorizedUserDataEntity.ShiftId) });
                     DisplayStatus("good", _timerTime, "Чек успешно закрыт");
+                    logger.Info($"Receipt №{receipt.Id} added to shift №{AuthorizedUserDataEntity.ShiftId}");
                     _currentProduct = new();
                     barcodeBox.Text = "";
                     cashButton.IsEnabled = false;
@@ -126,35 +148,44 @@ namespace WASA_Desktop.AutorizedPages
 
         private async void getCodeButton_Click(object sender, RoutedEventArgs e)
         {
-            var data = await SharedDataService.GetData(new() { UserId = AuthorizeUserDataEntity.Id });
+            var data = await SharedDataService.GetData(new() { UserId = AuthorizedUserDataEntity.Id });
             if (data != null)
             {
                 if (data.Barcode != null)
                 {
                     barcodeBox.Text = data.Barcode;
                     data = await SharedDataService.Update(new() { UserId = data.UserId, Barcode = barcodeBox.Text });
+                    logger.Info($"Get barcode:{data.Barcode} from other device");
                 }
                 else
+                {
                     DisplayStatus("error", _timerTime, "Код не был отправлен");
-            }
+                    logger.Info($"Barcode don`t sended");
+                }
+                }
         }
 
         private async void barcodeBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             if (barcodeBox.Text.Length == 13)
             {
+                logger.Info($"Search product with barcode:{barcodeBox.Text}");
                 _currentProduct = await ProductService.SearchProduct(new() { ProductCode = barcodeBox.Text });
                 if (_currentProduct != null)
                 {
+                    logger.Info($"Product finded");
                     nameBox.Text = _currentProduct.ProductName;
                     priceBox.Text = _currentProduct.Price.ToString();
                     countBox.Text = "1";
                 }
                 else
+                {
                     DisplayStatus("error", _timerTime, "Продукта не существует");
-                
+                    logger.Info($"Product don`t exist");
+                }
+
             }
-            else if(barcodeBox.Text.Length == 0)
+            else if (barcodeBox.Text.Length == 0)
             {
                 nameBox.Text = "";
                 priceBox.Text = "";
@@ -165,11 +196,13 @@ namespace WASA_Desktop.AutorizedPages
         private void autoCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             _autoBarcodeUpdate = true;
+            logger.Info($"Auto getting code active");
         }
 
         private void autoCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            _autoBarcodeUpdate = true;
+            _autoBarcodeUpdate = false;
+            logger.Info($"Auto getting code deactive");
         }
 
         private async void addButton_Click(object sender, RoutedEventArgs e)
@@ -194,9 +227,9 @@ namespace WASA_Desktop.AutorizedPages
                                     ProductPrices = [Convert.ToDouble(priceBox.Text)],
                                     PayMethod = PayMethodEnum.Cash,
                                     Total = Convert.ToDouble(countBox.Text) * Convert.ToDouble(priceBox.Text),
-                                    Seller = "DesktopTestUser"//await SecureStorage.GetAsync(SecureStoragePathConst.Username)
+                                    Seller = AuthorizedUserDataEntity.FIO!
                                 });
-                               
+                                logger.Info($"User create receipt №{_currentReceipt.Id} with product(barcode:{_currentProduct.ProductCode}");
                                 receiptDG.ItemsSource = await FillReceiptDGFromReceipt(await ReceiptService.GetReceiptById(new() { Id = _currentReceipt.Id }));
                                 DisplayStatus("good", _timerTime, "Чек создан");
                                 totalLabel.Content = "Итого: " + _currentReceipt.Total.ToString();
@@ -214,6 +247,7 @@ namespace WASA_Desktop.AutorizedPages
                                 request.ProductPrices.Add(Convert.ToDouble(priceBox.Text));
 
                                 _currentReceipt = await ReceiptService.AddProductToReceipt(request);
+                                logger.Info($"User add product(barcode:{_currentProduct.ProductCode}) to receipt №{_currentReceipt.Id}");
                                 receiptDG.ItemsSource = await FillReceiptDGFromReceipt(await ReceiptService.GetReceiptById(new() { Id = _currentReceipt.Id }));
                                 DisplayStatus("good", _timerTime, "Продукт успешно добавлен");
                                 totalLabel.Content = "Итого: " + _currentReceipt.Total.ToString();
@@ -248,23 +282,10 @@ namespace WASA_Desktop.AutorizedPages
                     }
                 }
             }
+            logger.Info($"DataGrid updated with {listToReturn.Count} items");
             return listToReturn;
         }
 
-        private async void barcodeBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            var data = await SharedDataService.GetData(new() { UserId = AuthorizeUserDataEntity.Id });
-            if (data != null)
-            {
-                if (data.Barcode != null)
-                {
-                    barcodeBox.Text = data.Barcode;
-                    data = await SharedDataService.Update(new() { UserId = data.UserId, Barcode = barcodeBox.Text });
-                }
-                else
-                    DisplayStatus("error", _timerTime, "Код не был отправлен");
-            }
-        }
 
         private async void backButton_Click(object sender, RoutedEventArgs e)
         {
@@ -277,9 +298,13 @@ namespace WASA_Desktop.AutorizedPages
                         var backWindow = new MainAdminWindow();
                         backWindow.Show();
                         Close();
+                        logger.Info(Title + "closed");
                     }
                     else
+                    {
                         DisplayStatus("error", _timerTime, "Проведите оплату, либо отмените чек");
+                        logger.Info($"Closing canceled");
+                    }
                 }
                 else
                 {

@@ -1,7 +1,9 @@
 ﻿using Core.Entity;
 using System.Windows;
 using System.Windows.Controls;
-using WASA_Mobile.Service;
+using System.Windows.Media;
+using WASA_CoreLib.Entity;
+using WASA_Desktop.Service;
 
 namespace WASA_Desktop.AutorizedPages
 {
@@ -43,7 +45,10 @@ namespace WASA_Desktop.AutorizedPages
         {
             if(_selectedShift > 0)
             {
+                DisplayStatus("warning", 1000, $"Поиск чеков за смену №{_selectedShift}");
+                Title = $"Чеки за смену №{_selectedShift}";
                 receiptsDG.ItemsSource = await GetReceiptListByShiftID(_selectedShift);
+                DisplayStatus("good", 1000, $"Чеки успешно получены");
             }
         }
 
@@ -54,18 +59,80 @@ namespace WASA_Desktop.AutorizedPages
             Close();
         }
 
-        private async Task<IEnumerable<ReceiptEntity>> GetReceiptListByShiftID(int shiftId)
+        private async Task<IEnumerable<ReceiptShowEntity>> GetReceiptListByShiftID(int shiftId)
         {
             ShiftEntity shift = await ShiftService.ShowById(new() { Id = shiftId });
-            List<ReceiptEntity> listToReturn = new();
+            List<ReceiptShowEntity> listToReturn = [];
             if(shift.ReceiptsList != null)
             {
                 for (int i = 0; i < shift.ReceiptsList.Count; i++)
                 {
-                    listToReturn.Add(await ReceiptService.GetReceiptById(new() { Id = shift.ReceiptsList[i] }));
+                    ReceiptEntity receipt = await ReceiptService.GetReceiptById(new() { Id = shift.ReceiptsList[i] });
+                    ReceiptShowEntity showEntity = new();
+                    showEntity.Id = receipt.Id;
+                    showEntity.LoyaltyCardID = receipt.LoyaltyCardID;
+                    showEntity.LoyaltyBonusAdded = receipt.LoyaltyBonusAdded;
+                    showEntity.ProductCodes = receipt.ProductCodes![0];
+                    showEntity.ProductCategories = receipt.ProductCategories![0];
+                    showEntity.ProductNames = receipt.ProductNames![0];
+                    showEntity.ProductPrices = receipt.ProductPrices![0].ToString();
+                    showEntity.ProductCount = receipt.ProductCount![0].ToString();
+                    switch(receipt.PayMethod)
+                    {
+                        case Core.Const.PayMethodEnum.Cash:
+                            showEntity.PayMethod = "Наличные";
+                            break;
+                        case Core.Const.PayMethodEnum.Acquiring:
+                            showEntity.PayMethod = "Эквайринг";
+                            break;
+                    }
+                    showEntity.Total = receipt.Total;
+                    showEntity.Canceled = receipt.Canceled;
+                    showEntity.CancelReason = receipt.CancelReason.ToString();
+                    showEntity.Closed = receipt.Closed;
+                    showEntity.Seller = receipt.Seller;
+                    showEntity.CreationDate = receipt.CreationDate;
+                    showEntity.CancelDate = receipt.CancelDate;
+                    showEntity.ClosedDate = receipt.ClosedDate;
+                    showEntity.PaymentDate = receipt.PaymentDate;
+                    for (int j = 1; j < receipt.ProductCodes.Count; j++)
+                    {
+                        showEntity.ProductCodes += ", " + receipt.ProductCodes![j];
+                        showEntity.ProductCategories += ", " + receipt.ProductCategories![j];
+                        showEntity.ProductNames += ", " + receipt.ProductNames![j];
+                        showEntity.ProductPrices += ", " + receipt.ProductPrices![j].ToString(); ;
+                        showEntity.ProductCount += ", " + receipt.ProductCount![j].ToString(); ;
+                    }
+                    listToReturn.Add(showEntity);
                 }
             }
             return listToReturn;
+        }
+
+        /// <summary>
+        /// Method to display some text on statusLabel
+        /// </summary>
+        /// <param name="type">Status type(available error, warning, good)</param>
+        /// <param name="time">Timer time</param>
+        /// <param name="statusText">Text to display</param>
+        private async void DisplayStatus(string type, int time, string statusText)
+        {
+            switch (type)
+            {
+                case "error":
+                    statusLabel.Foreground = Brushes.Red;
+                    break;
+                case "warning":
+                    statusLabel.Foreground = Brushes.Gold;
+                    break;
+                case "good":
+                    statusLabel.Foreground = Brushes.Green;
+                    break;
+            }
+            statusLabel.Content = statusText;
+            statusLabel.Visibility = Visibility.Visible;
+            await Task.Delay(time);
+            statusLabel.Visibility = Visibility.Hidden;
         }
     }
 }

@@ -4,8 +4,9 @@ using DTO.Shift;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
+using WASA_CoreLib.Entity;
 
-namespace WASA_Mobile.Service
+namespace WASA_Desktop.Service
 {
     public static class ShiftService
     {
@@ -31,7 +32,7 @@ namespace WASA_Mobile.Service
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
                     if (result!.Id > 0)
                     {
-                        //AddShiftToSecureStorage(new() { Id = result.Id });
+                        AuthorizedUserDataEntity.ShiftId = result.Id;
                         return result;
                     }
                 }
@@ -65,10 +66,7 @@ namespace WASA_Mobile.Service
                 return null;
             }
         }
-        /// <summary>
-        /// TODO: Re-write to API request
-        /// </summary>
-        /// <returns></returns>
+
         public static async Task<IEnumerable<ShiftEntity>> ShowAll()
         {
             try
@@ -98,6 +96,7 @@ namespace WASA_Mobile.Service
             List<int> listToReturn = [];
             foreach (var shift in shifts)
                 listToReturn.Add(shift.Id);
+            listToReturn.Sort();
             return listToReturn;
                 
 
@@ -184,7 +183,7 @@ namespace WASA_Mobile.Service
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
                     if (result!.Id > 0)
                     {
-                        ///RemoveShiftFromSecureStorage();
+                        AuthorizedUserDataEntity.ShiftId = -1;
                         return result;
                     }
                 }

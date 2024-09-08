@@ -4,7 +4,7 @@ using WASA_CoreLib.Entity;
 using WASA_DTOLib.SharedData;
 using System.Net.Http;
 
-namespace WASA_Mobile.Service
+namespace WASA_Desktop.Service
 {
     public static class SharedDataService
     {

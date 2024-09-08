@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WASA_Desktop.AutorizedPages"
         mc:Ignorable="d"
-        Title="ReceiptViewWindow" Height="450" Width="800">
+        Title="Чеки за смены" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <DataGrid Grid.Column="0" x:Name="receiptsDG" Margin="15 15 15 100" AutoGenerateColumns="False" ItemsSource="{Binding}">
             <DataGrid.Columns>
@@ -33,11 +33,11 @@
         </DataGrid>
         <StackPanel Grid.Column="1" HorizontalAlignment="Right">
             <StackPanel  Margin="15">
-                <Label HorizontalAlignment="Center" Visibility="Hidden" x:Name="statusLabel" FontSize="16"/>
+                <Label HorizontalAlignment="Left" Visibility="Hidden" x:Name="statusLabel" FontSize="16"/>
                 <StackPanel Orientation="Vertical" >
                     <Label Content="Выберите смену"  Margin="15, 0" HorizontalAlignment="Left"/>
                     <ScrollViewer Margin="15, 0" HorizontalAlignment="Left">
-                        <StackPanel x:Name="shiftChoiceStackPanel" Orientation="Vertical"/>
+                        <StackPanel x:Name="shiftChoiceStackPanel" Orientation="Vertical" Margin="1"/>
                     </ScrollViewer>
                 </StackPanel>
                 <Button Content="Показать чеки" IsDefault="True" HorizontalAlignment="Left" Margin="15" Padding="5" x:Name="showButton" Click="showButton_Click"/>

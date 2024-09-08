@@ -39,5 +39,12 @@ namespace WASA_Desktop.AutorizedPages
             receiptViewWindow.Show();
             Close();
         }
+
+        private void currentShiftButton_Click(object sender, RoutedEventArgs e)
+        {
+            var shiftWindow = new ShiftWindow();
+            shiftWindow.Show();
+            Close();
+        }
     }
 }
