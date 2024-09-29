@@ -8,7 +8,8 @@ namespace WASA_Mobile.Pages;
 
 public partial class ShiftPage : ContentPage
 {
-    private ShiftEntity currentShift = Task.Run(async () => await ShiftService.ShowById(new() { Id = Convert.ToInt32(await SecureStorage.GetAsync(SecureStoragePathConst.ShiftID)) })).Result;
+    private ShiftEntity currentShift = Task.Run(async () => await ShiftService.ShowById(new() { Id = Convert.ToInt32(await SecureStorage.GetAsync(SecureStoragePathConst.ShiftID))})).Result;
+    //await SharedDataService.GetShiftID(new() { UserId = Convert.ToInt32(SecureStorage.GetAsync(SecureStoragePathConst.Id)) }) 
     public ShiftPage()
 	{
 		InitializeComponent();
@@ -24,9 +25,9 @@ public partial class ShiftPage : ContentPage
             AcquiringApproveButton.Opacity = 1;
 			CloseShiftButton.IsEnabled = true;
             CloseShiftButton.Opacity = 1;
-
             BindingContext = currentShift;
-            if(currentShift.AcquiringApproved == true)
+
+            if (currentShift.AcquiringApproved == true)
             {
                 AcquiringAmountLabel.Text += "✓";
             }
@@ -40,7 +41,7 @@ public partial class ShiftPage : ContentPage
 
         if (currentShift != null)
 		{
-
+            await SharedDataService.Update(new() { UserId = Convert.ToInt32(await SecureStorage.GetAsync(SecureStoragePathConst.Id)), OpenedShiftID = currentShift.Id, Barcode = "" });
             OpenShiftButton.IsEnabled = false;
             OpenShiftButton.Opacity = 0.5;
             InsertCashButton.IsEnabled = true;
@@ -62,6 +63,7 @@ public partial class ShiftPage : ContentPage
             if (await DisplayAlert("Подтверждение закрытия смены", "Вы уверены, что хотите закрыть смену?", "Да", "Нет"))
             {
                 currentShift = await ShiftService.Close(new() { Id = currentShift.Id, ClosedBy = await SecureStorage.GetAsync(SecureStoragePathConst.Username) });
+                await SharedDataService.Update(new() { UserId = Convert.ToInt32(await SecureStorage.GetAsync(SecureStoragePathConst.Id)), OpenedShiftID = -1, Barcode = "" });
                 if (currentShift.Closed == true)
                 {
                     OpenShiftButton.IsEnabled = true;

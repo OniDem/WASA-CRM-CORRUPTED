@@ -1,0 +1,40 @@
+﻿<Window x:Class="WASA_Desktop.AutorizedPages.ShiftWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WASA_Desktop.AutorizedPages"
+        mc:Ignorable="d"
+        Title="Текущая смена" Height="450" Width="800">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="25" Orientation="Vertical" HorizontalAlignment="Left">
+                <Button IsEnabled="False" Padding="8" Content="Открыть" Margin="10" x:Name="openShiftButton" Click="openShiftButton_Click"/>
+                <Button IsEnabled="False" Padding="8" Content="Внести наличные" Margin="10" x:Name="insertCashButton" Click="insertCashButton_Click"/>
+                <Button IsEnabled="False" Padding="8" Content="Изъять наличные" Margin="10" x:Name="extractCashButton" Click="extractCashButton_Click"/>
+                <Button IsEnabled="False" Padding="8" Content="Сверка эквайринга" Margin="10" x:Name="acquiringApproveButton" Click="acquiringApproveButton_Click"/>
+                <Button IsEnabled="False" Padding="8" Content="Закрыть" Margin="10" x:Name="closeShiftButton" Click="closeShiftButton_Click"/>
+            </StackPanel>
+            <StackPanel Margin="25" Orientation="Vertical" HorizontalAlignment="Left">
+                <StackPanel>
+                    <Label Content="Выручка за сегодня: " VerticalContentAlignment="Center"/>
+                    <Label x:Name="dailyBillingLabel" Content="{Binding Total}"  VerticalContentAlignment="Center"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Наличные: " VerticalContentAlignment="Center"/>
+                    <Label x:Name="cashLabel" Content="{Binding Cash}" VerticalContentAlignment="Center"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Эквайринг: " VerticalContentAlignment="Center"/>
+                    <Label x:Name="acquiringAmountLabel" Content="{Binding Acquiring}" VerticalContentAlignment="Center"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="В кассе: " VerticalContentAlignment="Center"/>
+                    <Label x:Name="cashBoxAmountLabel" Content="{Binding CashBox}" VerticalContentAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        
+        <Button Content="Назад" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="15" x:Name="backButton" Click="backButton_Click"/>
+    </Grid>
+</Window>

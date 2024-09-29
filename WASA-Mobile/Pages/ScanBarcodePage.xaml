@@ -13,6 +13,8 @@
                 <Label Text="Наименование:" x:Name="NameLabel" Style="{StaticResource DefaultLabelStyle}" LineBreakMode="WordWrap"/>
                 <Label Text="Цена:" x:Name="PriceLabel" Style="{StaticResource DefaultLabelStyle}"/>
                 <Label Text="Остаток:" x:Name="CountLabel" Style="{StaticResource DefaultLabelStyle}"/>
+                <Button Text="Отсканировать ещё раз" Style="{StaticResource DefaultButtonStyle}" x:Name="scanButton" Clicked="scanButton_Clicked" HorizontalOptions="Fill"/>
+                <Button Text="Отправить на другое устройство"  Style="{StaticResource DefaultButtonStyle}" x:Name="sendCodeButton" Clicked="sendCodeButton_Clicked" HorizontalOptions="Fill"/>
             </VerticalStackLayout>
             <Grid ColumnDefinitions="*, *, *, *" HorizontalOptions="FillAndExpand" HeightRequest="32" Margin="8" VerticalOptions="End" ZIndex="1">
                 <ImageButton Grid.Column="0" x:Name="ScanBarcodeButton" Clicked="ScanBarcodeButton_Clicked" Source="scan.svg"/>

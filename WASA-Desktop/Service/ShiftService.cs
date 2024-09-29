@@ -2,12 +2,15 @@
 using Core.Entity;
 using DTO.Shift;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
+using WASA_CoreLib.Entity;
 
-namespace WASA_Mobile.Service
+namespace WASA_Desktop.Service
 {
     public static class ShiftService
     {
+        /*
         public static bool ShiftOpen()
         {
             var result = Task.Run(async () => await SecureStorage.GetAsync(SecureStoragePathConst.ShiftID)).Result;
@@ -16,7 +19,7 @@ namespace WASA_Mobile.Service
             else
                 return true;
         }
-
+        */
         public async static Task<ShiftEntity> Open(OpenShiftRequest request)
         {
             try
@@ -29,13 +32,13 @@ namespace WASA_Mobile.Service
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
                     if (result!.Id > 0)
                     {
-                        AddShiftToSecureStorage(new() { Id = result.Id });
+                        AuthorizedUserDataEntity.ShiftId = result.Id;
                         return result;
                     }
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -58,10 +61,45 @@ namespace WASA_Mobile.Service
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
+        }
+
+        public static async Task<IEnumerable<ShiftEntity>> ShowAll()
+        {
+            try
+            {
+                JsonContent content = JsonContent.Create("");
+                HttpClient httpClient = new();
+                var response = await httpClient.PostAsync("https://onidem-wasa-api-c94a.twc1.net/Shift/ShowAll", content);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<IEnumerable<ShiftEntity>>();
+                    if (result!.Count() > 0)
+                    {
+                        return result!;
+                    }
+                }
+                return [];
+            }
+            catch (Exception )
+            {
+                return [];
+            }
+        }
+
+        public static async Task<List<int>> ShowAllIds()
+        {
+           var shifts = await ShowAll();
+            List<int> listToReturn = [];
+            foreach (var shift in shifts)
+                listToReturn.Add(shift.Id);
+            listToReturn.Sort();
+            return listToReturn;
+                
+
         }
 
         public static async Task<ShiftEntity> InsertCash(CashOperationRequest request)
@@ -81,7 +119,7 @@ namespace WASA_Mobile.Service
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -104,7 +142,7 @@ namespace WASA_Mobile.Service
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -127,7 +165,7 @@ namespace WASA_Mobile.Service
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -145,13 +183,13 @@ namespace WASA_Mobile.Service
                     var result = await response.Content.ReadFromJsonAsync<ShiftEntity>();
                     if (result!.Id > 0)
                     {
-                        RemoveShiftFromSecureStorage();
+                        AuthorizedUserDataEntity.ShiftId = -1;
                         return result;
                     }
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -174,22 +212,10 @@ namespace WASA_Mobile.Service
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
-        }
-
-        private static async void AddShiftToSecureStorage(SecureStorageShiftEntity entity)
-        {
-            await SecureStorage.SetAsync(SecureStoragePathConst.ShiftID, entity.Id.ToString());
-        }
-
-        private static void RemoveShiftFromSecureStorage()
-        {
-            SecureStorage.Remove(SecureStoragePathConst.ShiftID);
-        }
-
-        
+        }      
     }
 }

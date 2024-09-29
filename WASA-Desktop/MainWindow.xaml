@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WASA_Desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+            <Label Content="Введите данные для авторизации" FontSize="16" HorizontalAlignment="Center"/>
+            <StackPanel Margin="10">
+                <Label Content="Имя пользователя"/>
+                <TextBox x:Name="usernameBox"/>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <Label Content="Пароль"/>
+                <PasswordBox x:Name="passswordBox"/>
+            </StackPanel>
+            <Button Content="Авторизоваться" Margin="10" x:Name="authButton" IsDefault="True" Click="authButton_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -1,6 +1,0 @@
-@WASA_API_HostAddress = http://localhost:8080
-
-GET {{WASA_API_HostAddress}}/Product/Add
-Accept: application/json
-
-###

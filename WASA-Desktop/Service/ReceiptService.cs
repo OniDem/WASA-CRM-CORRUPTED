@@ -2,9 +2,10 @@
 using Core.Entity;
 using DTO.Receipt;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 
-namespace WASA_Mobile.Service
+namespace WASA_Desktop.Service
 {
     public static class ReceiptService
     {
@@ -20,13 +21,13 @@ namespace WASA_Mobile.Service
                     var result = await response.Content.ReadFromJsonAsync<ReceiptEntity>();
                     if (result!.Id > 0)
                     {
-                        AddReceiptToSecureStorage(new() { Id = result.Id });
+                        //AddReceiptToSecureStorage(new() { Id = result.Id });
                         return result;
                     }
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -49,7 +50,7 @@ namespace WASA_Mobile.Service
                 }
                 return new() { Id = -1 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new() { Id = -1 };
             }
@@ -72,7 +73,7 @@ namespace WASA_Mobile.Service
                 }
                 return new() { Id = -1 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new() { Id = -1 };
             }
@@ -95,7 +96,7 @@ namespace WASA_Mobile.Service
                 }
                 return new() { Id = -1 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new() { Id = -1 };
             }
@@ -118,7 +119,7 @@ namespace WASA_Mobile.Service
                 }
                 return new() { Id = -1 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new() { Id = -1 };
             }
@@ -141,15 +142,10 @@ namespace WASA_Mobile.Service
                 }
                 return new() { Id = -1 };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new() { Id = -1 };
             }
-        }
-
-        private static async void AddReceiptToSecureStorage(GetReceiptByIdRequest request)
-        {
-            await SecureStorage.SetAsync(SecureStoragePathConst.ReceiptID, request.Id.ToString());
         }
     }
 }
