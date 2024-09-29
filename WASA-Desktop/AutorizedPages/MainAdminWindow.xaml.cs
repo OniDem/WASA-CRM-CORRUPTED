@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Runtime.CompilerServices;
+using System.Windows;
+using WASA_CoreLib.Entity;
 
 namespace WASA_Desktop.AutorizedPages
 {
@@ -7,9 +9,11 @@ namespace WASA_Desktop.AutorizedPages
     /// </summary>
     public partial class MainAdminWindow : Window
     {
+        private readonly SharedDataEntity sharedDataEntity;
         public MainAdminWindow()
         {
             InitializeComponent();
+            Title = $"Главное меню Продавец: 'indev'"; //{sharedDataEntity.UserFIO}
         }
 
         private void wareHouseButton_Click(object sender, RoutedEventArgs e)

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using WASA_CoreLib.Entity;
+using WASA_CoreLib.ShowEntity;
 using WASA_Desktop.Service;
 
 namespace WASA_Desktop.AutorizedPages
@@ -91,7 +92,7 @@ namespace WASA_Desktop.AutorizedPages
                     showEntity.CancelReason = receipt.CancelReason.ToString();
                     showEntity.Closed = receipt.Closed;
                     showEntity.Seller = receipt.Seller;
-                    showEntity.CreationDate = receipt.CreationDate;
+                    showEntity.CreationDate = receipt.CreationDateFull;
                     showEntity.CancelDate = receipt.CancelDate;
                     showEntity.ClosedDate = receipt.ClosedDate;
                     showEntity.PaymentDate = receipt.PaymentDate;

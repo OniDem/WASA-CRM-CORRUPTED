@@ -2,6 +2,7 @@
 using System.Net.Http.Json;
 using System.Net;
 using System.Net.Http;
+using WASA_CoreLib.ShowEntity;
 
 namespace WASA_Desktop.Service
 {

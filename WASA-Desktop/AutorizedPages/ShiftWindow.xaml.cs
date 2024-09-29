@@ -70,7 +70,7 @@ namespace WASA_Desktop.AutorizedPages
         {
             try
             {
-                var currentShift = await ShiftService.Open(new() { OpenBy = AuthorizedUserDataEntity.FIO, CashBox = 0/*AuthorizedUserDataEntity.LastShiftCashBox*/});
+                var currentShift = await ShiftService.Open(new() { FIO = AuthorizedUserDataEntity.FIO, UserId = AuthorizedUserDataEntity.Id, OrganizationId = 1, OpenDate = DateTime.UtcNow, Cash = 0, Acquiring = 0, CashBox = AuthorizedUserDataEntity.LastShiftCashBox});
                 logger.Info($"User opened shift {currentShift.Id}");
                 if (currentShift != null)
                 {
@@ -92,7 +92,7 @@ namespace WASA_Desktop.AutorizedPages
                     }
                     else
                     {
-                        await ShiftService.Close(new() { Id = currentShift.Id, ClosedBy = AuthorizedUserDataEntity.FIO });
+                        await ShiftService.Close(new() { Id = currentShift.Id, FIO = AuthorizedUserDataEntity.FIO });
                         Title = $"Текущая смена не открыта";
                         openShiftButton.IsEnabled = true;
                         dailyBillingLabel.Content = 0;
@@ -203,7 +203,7 @@ namespace WASA_Desktop.AutorizedPages
                     var res = MessageBox.Show("Вы уверены что хотите закрыть смену?", "", MessageBoxButton.OK);
                     if (res == MessageBoxResult.OK)
                     {
-                        currentShift = await ShiftService.Close(new() { Id = currentShift.Id, ClosedBy = AuthorizedUserDataEntity.FIO });
+                        currentShift = await ShiftService.Close(new() { Id = currentShift.Id, FIO = AuthorizedUserDataEntity.FIO });
                         if (currentShift.Closed == true)
                         {
                             SharedDataEntity data = await SharedDataService.Update(new() { UserId = AuthorizedUserDataEntity.Id, OpenedShiftID = -1, Barcode = "" });

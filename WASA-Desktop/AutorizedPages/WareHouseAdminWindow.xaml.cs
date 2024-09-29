@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using WASA_CoreLib.Entity;
+using WASA_CoreLib.ShowEntity;
 using WASA_Desktop.Service;
 
 namespace WASA_Desktop.AutorizedPages

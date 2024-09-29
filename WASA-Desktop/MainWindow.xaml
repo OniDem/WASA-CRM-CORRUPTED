@@ -17,7 +17,7 @@
                 <Label Content="Пароль"/>
                 <PasswordBox x:Name="passswordBox"/>
             </StackPanel>
-            <Button Content="Авторизоваться" Margin="10" x:Name="authButton" Click="authButton_Click"/>
+            <Button Content="Авторизоваться" Margin="10" x:Name="authButton" IsDefault="True" Click="authButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
