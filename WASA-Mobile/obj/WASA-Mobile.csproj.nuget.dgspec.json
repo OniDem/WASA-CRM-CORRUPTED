@@ -1,168 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\WASA-Mobile\\WASA-Mobile.csproj": {}
+    "O:\\source\\OniDem\\WASA-CRM\\WASA-Mobile\\WASA-Mobile.csproj": {}
   },
   "projects": {
-    "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj": {
+    "O:\\source\\OniDem\\WASA-CRM\\WASA-Mobile\\WASA-Mobile.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj",
-        "projectName": "Core",
-        "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\OniDem1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\OniDem1\\source\\repos\\OniDem\\WASA-CRM\\Core\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\OniDem1\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "dependencies": {
-            "Microsoft.Data.Sqlite": {
-              "target": "Package",
-              "version": "[8.0.4, )"
-            },
-            "SQLitePCLRaw.bundle_green": {
-              "target": "Package",
-              "version": "[2.1.8, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj",
-        "projectName": "DTO",
-        "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj",
-        "packagesPath": "C:\\Users\\OniDem1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\OniDem1\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {
-              "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\WASA-Mobile\\WASA-Mobile.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\WASA-Mobile\\WASA-Mobile.csproj",
+        "projectUniqueName": "O:\\source\\OniDem\\WASA-CRM\\WASA-Mobile\\WASA-Mobile.csproj",
         "projectName": "WASA-Mobile",
-        "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\WASA-Mobile\\WASA-Mobile.csproj",
-        "packagesPath": "C:\\Users\\OniDem1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\WASA-Mobile\\obj\\",
+        "projectPath": "O:\\source\\OniDem\\WASA-CRM\\WASA-Mobile\\WASA-Mobile.csproj",
+        "packagesPath": "C:\\Users\\Spain\\.nuget\\packages\\",
+        "outputPath": "O:\\source\\OniDem\\WASA-CRM\\WASA-Mobile\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\OniDem1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Spain\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -180,47 +36,19 @@
         "frameworks": {
           "net8.0-android34.0": {
             "targetAlias": "net8.0-android",
-            "projectReferences": {
-              "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj"
-              },
-              "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj": {
-                "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj"
-              }
-            }
+            "projectReferences": {}
           },
           "net8.0-ios17.2": {
             "targetAlias": "net8.0-ios",
-            "projectReferences": {
-              "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj"
-              },
-              "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj": {
-                "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj"
-              }
-            }
+            "projectReferences": {}
           },
           "net8.0-maccatalyst17.2": {
             "targetAlias": "net8.0-maccatalyst",
-            "projectReferences": {
-              "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj"
-              },
-              "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj": {
-                "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj"
-              }
-            }
+            "projectReferences": {}
           },
           "net8.0-windows10.0.19041": {
             "targetAlias": "net8.0-windows10.0.19041.0",
-            "projectReferences": {
-              "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\Core\\Core.csproj"
-              },
-              "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj": {
-                "projectPath": "C:\\Users\\OniDem1\\Source\\Repos\\OniDem\\WASA-CRM\\DTO\\DTO.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -240,35 +68,35 @@
           "dependencies": {
             "BarcodeScanning.Native.Maui": {
               "target": "Package",
-              "version": "[1.5.0, )"
+              "version": "[1.5.7, )"
             },
             "CommunityToolkit.Maui": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.2, )"
             },
             "CommunityToolkit.Maui.Core": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
@@ -280,17 +108,25 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.21, )"
+              "version": "[8.0.80, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.21, )"
+              "version": "[8.0.80, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.2, )",
               "autoReferenced": true
+            },
+            "WASA-CoreLib": {
+              "target": "Package",
+              "version": "[1.1.7, )"
+            },
+            "WASA-DTOLib": {
+              "target": "Package",
+              "version": "[1.1.61, )"
             },
             "sqlite-net-pcl": {
               "target": "Package",
@@ -323,35 +159,35 @@
           "dependencies": {
             "BarcodeScanning.Native.Maui": {
               "target": "Package",
-              "version": "[1.5.0, )"
+              "version": "[1.5.7, )"
             },
             "CommunityToolkit.Maui": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.2, )"
             },
             "CommunityToolkit.Maui.Core": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
@@ -363,17 +199,25 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.21, )"
+              "version": "[8.0.80, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.21, )"
+              "version": "[8.0.80, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.2, )",
               "autoReferenced": true
+            },
+            "WASA-CoreLib": {
+              "target": "Package",
+              "version": "[1.1.7, )"
+            },
+            "WASA-DTOLib": {
+              "target": "Package",
+              "version": "[1.1.61, )"
             },
             "sqlite-net-pcl": {
               "target": "Package",
@@ -406,35 +250,35 @@
           "dependencies": {
             "BarcodeScanning.Native.Maui": {
               "target": "Package",
-              "version": "[1.5.0, )"
+              "version": "[1.5.7, )"
             },
             "CommunityToolkit.Maui": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.2, )"
             },
             "CommunityToolkit.Maui.Core": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
@@ -446,17 +290,25 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.21, )"
+              "version": "[8.0.80, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.21, )"
+              "version": "[8.0.80, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.2, )",
               "autoReferenced": true
+            },
+            "WASA-CoreLib": {
+              "target": "Package",
+              "version": "[1.1.7, )"
+            },
+            "WASA-DTOLib": {
+              "target": "Package",
+              "version": "[1.1.61, )"
             },
             "sqlite-net-pcl": {
               "target": "Package",
@@ -490,35 +342,35 @@
           "dependencies": {
             "BarcodeScanning.Native.Maui": {
               "target": "Package",
-              "version": "[1.5.0, )"
+              "version": "[1.5.7, )"
             },
             "CommunityToolkit.Maui": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.2, )"
             },
             "CommunityToolkit.Maui.Core": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.7, )"
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
@@ -530,11 +382,19 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.21, )"
+              "version": "[8.0.80, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.21, )"
+              "version": "[8.0.80, )"
+            },
+            "WASA-CoreLib": {
+              "target": "Package",
+              "version": "[1.1.7, )"
+            },
+            "WASA-DTOLib": {
+              "target": "Package",
+              "version": "[1.1.61, )"
             },
             "sqlite-net-pcl": {
               "target": "Package",
